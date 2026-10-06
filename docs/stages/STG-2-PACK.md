@@ -1,172 +1,111 @@
 ---
 id: STG-2-PACK
-title: "Stage 2: PACK subsystem cycle"
-status: draft
-owner: Braden Toone (builder)
-last_updated: 2026-10-06
-subsystem: SUB-PACK
-spark: part of Spark
-source_sections: [7, 8, 9, 10, 12, 13, 17]
+status: Not started
+updated: 2026-10-06
+stage_type: cycle
+subsystem: PACK
+spark: yes
 ---
 
-# STG-2-PACK: Battery pack, BMS, and power distribution cycle
+# STG-2-PACK: Battery pack, BMS, and power distribution
 
 ## Purpose
 
-This cycle takes PACK from a learning burst to an isolated bench pack. The bench pack switches a load safely and trips on injected faults. PACK is second in the recommended order, because it has the most important interaction with DRV.
+Prove that a pack, its BMS, and its power path start up safely and trip on faults. Prove it on paper first, then on an isolated bench pack. Power distribution is part of this cycle.
 
-Power distribution (main fuse, contactors, precharge) is part of this cycle, because it is physically part of the pack.
+## Entry and exit
 
-## Inputs
+- Entry: the DRV fold-back chose PACK.
+- Exit: the fold-back checkpoint is answered, or the cycle is parked at the spend checkpoint. Finishing this cycle after DRV reaches Spark.
 
-- [Subsystem cycle template](../project/PROJECT.md#subsystem-cycle)
-- [PACK subsystem definition](../subsystems/SUBSYSTEMS.md#pack-battery-pack-bms-and-power-distribution)
-- [System goals](STG-1-ARCHITECTURE.md#requirements) and the Stage 1 sizing model v0
-- DRV's current and energy needs from [STG-2-DRV](STG-2-DRV.md)
-- [Safety approach](../project/PROJECT.md#safety-approach)
+## Inputs and neighbors
 
-**Neighbors to review.** No subsystem is defined in isolation. This cycle reviews these interfaces and feeds changes back.
-
-| Neighbor | What to review |
-| --- | --- |
-| [DRV](../subsystems/SUBSYSTEMS.md#drv-motor-and-drive) | Current and energy needs; nominal pack voltage |
-| [VCU](../subsystems/SUBSYSTEMS.md#vcu-vehicle-control-unit) | Pack state messages; the control states the BMS and power path define |
-| [CHS](../subsystems/SUBSYSTEMS.md#chs-chassis-and-mechanical) | Pack mount points and enclosure |
-| [NET](../subsystems/SUBSYSTEMS.md#net-network-and-harness) | Message needs, connectors, and harness |
+- DRV current and energy needs from [STG-2-DRV](STG-2-DRV.md), and system goals from [GOALS.md](../project/GOALS.md).
+- Neighbors: DRV, VCU, CHS, NET. Interfaces are in [SUBSYSTEMS.md](../architecture/SUBSYSTEMS.md#pack-battery-pack-bms-and-power-distribution).
 
 ## Goals
 
-- Build working vocabulary in cells, BMS design, and the pack power path.
-- Prove on paper that the pack, precharge, fusing, and E-stop loop hold together.
-- Show a bench pack that starts up safely and trips on injected faults.
+- A paper design of pack sizing, precharge, fusing, and the E-stop loop that holds together.
+- A bench pack that starts up safely and trips on every injected fault.
 
-## Requirements
+## System goals served
 
-Values are TBD unless the builder fixed them.
-
-| ID | Requirement | Target | How to check | Source |
-| --- | --- | --- | --- | --- |
-| REQ-PACK-001 | Below the voltage ceiling at full charge (system goal) | Per [STG-1](STG-1-ARCHITECTURE.md#requirements) (below 60 V DC, fixed) | Measurement | Section 7 |
-| REQ-PACK-002 | Protects cells and disconnects safely on faults (system goal) | Per [STG-1](STG-1-ARCHITECTURE.md#requirements); fault list defined in this cycle | Fault-injection test | Section 7 |
-| REQ-SAF-001 | Hardware E-stop removes traction power (system goal, proposed owner PACK) | Per [STG-1](STG-1-ARCHITECTURE.md#requirements) | Test and inspection | Section 7 |
-| REQ-SYS-002 | Useful run time (system goal) | Per [STG-1](STG-1-ARCHITECTURE.md#requirements) | Test | Section 7 |
-| REQ-SYS-004 | Power and energy sized for speed, load, and run time (system goal, shared with DRV) | Per [STG-1](STG-1-ARCHITECTURE.md#requirements) | Analysis and test | Section 7 |
-| REQ-PACK-003 | The BMS monitors and balances the cells. | TBD | Test | Section 8 responsibilities |
-| REQ-PACK-004 | The BMS estimates state of charge. | TBD | Test against logged data | Section 8 responsibilities |
-| REQ-PACK-005 | The BMS has authority over the contactors and precharge. | Ownership only; design TBD | Inspection and test | Section 8 boundaries |
-| REQ-PACK-006 | Precharge completes before the main contactor closes. | TBD | Functional test | Sections 8, 10 |
-| REQ-PACK-007 | A main fuse protects the pack. | TBD | Inspection | Section 8 responsibilities |
-| REQ-PACK-008 | The mechanical E-stop loop works independently of software. | Hardware path only | Test | Section 8 boundaries |
-| REQ-PACK-009 | HVIL and IMD are included only if determined necessary below 60 V DC. | TBD | Analysis | Section 8 responsibilities |
-| REQ-PACK-010 | The pack reports its state to VCU over the shared network. | TBD | Test | Section 8 boundaries |
+REQ-SYS-002, REQ-SYS-004, REQ-SAF-001, REQ-SAF-002, REQ-SAF-003.
 
 ## Tasks
 
-### Step 1: Learning burst (3 to 7 days, free)
+### Step 1: Learning burst
 
 - [ ] Study Li-ion and LiFePO4 basics, cell limits, and balancing.
 - [ ] Study equivalent-circuit models and state of charge estimation.
 - [ ] Read BMS front-end datasheets.
-- [ ] Study fusing, wire sizing, contactors, and precharge.
-- [ ] Study E-stop loops, and whether HVIL or IMD is needed below 60 V DC.
-- [ ] Keep a "what I still don't understand" list.
+- [ ] Study fusing, wire sizing, contactors, precharge, and E-stop loops.
+- [ ] Find out whether HVIL or IMD is needed below 60 V DC.
 
-### Step 2: Needs and MVP sketch (1 to 2 days, free)
+### Step 2: Needs and MVP sketch
 
-- [ ] Write a one-page needs sketch: what PACK must do, key numbers, interfaces to neighbors, and safety concerns.
-- [ ] Note PACK's safe state, failure behavior, and which protections live in hardware.
-- [ ] Draft the fault list for REQ-PACK-002.
-- [ ] Confirm or change the draft subsystem MVP below.
+- [ ] Create `subsystems/PACK/docs/` from the subsystem templates.
+- [ ] Write REQUIREMENTS.md, including the fault list for REQ-SAF-003.
+- [ ] Confirm the draft MVP below.
 
-Draft subsystem MVP (proposed, builder to confirm):
-
-| Item | Draft |
+| MVP | Draft (proposed, builder to confirm) |
 | --- | --- |
-| Prototype | PRT-PACK-01: an isolated bench pack of a few series cells at low voltage |
-| Setup | BMS logic controls a contactor or relay into a resistive or lamp load. No motor. |
+| Prototype | PRT-PACK-01: a few series cells at low voltage. BMS logic switches a contactor or relay into a resistive or lamp load. No motor. |
 | Test | TST-PACK-001 |
-| Pass or fail criterion | Pass if precharge and safety checks run before the load is connected, and each injected fault trips the pack. The mechanical E-stop loop must also open the power path without software. Fault list and thresholds TBD. |
+| Pass or fail | Precharge and safety checks run before the load connects. Every injected fault on the list trips the pack. The mechanical E-stop opens the power path without software. Thresholds TBD. |
 
-### Step 3: Concepts (1 to 3 days, free)
+### Step 3: Concepts
 
-- [ ] Sketch two or three pack source options and compare them informally. Weigh learning value, cost, and fit.
-- [ ] Sketch BMS options as buy, adapt open source, or build.
-- [ ] Treat safety as a pass or fail screen.
-- [ ] Log the choice and the rejected options in the decision log.
+- [ ] Compare Li-ion cells assembled by the builder, LiFePO4, and a commercial pack with its own BMS. Settle [DEC-004](../decisions/DEC-004-pack-from-cells.md).
+- [ ] Compare BMS options: buy, adapt open source, or build.
 
-Concept scoring is left blank on purpose.
-
-| ID | Concept | Learning value | Cost | Fit | Safety screen |
-| --- | --- | --- | --- | --- | --- |
-| CON-PACK-A | Li-ion cells assembled by the builder (current preference) | | | | |
-| CON-PACK-B | LiFePO4 | | | | |
-| CON-PACK-C | Commercial pack with its own BMS | | | | |
-
-### Step 4: Paper proof of concept (1 to 2 weeks, free)
+### Step 4: Paper proof of concept
 
 - [ ] Size the pack for DRV's current and energy needs.
 - [ ] Fit a cell model to public data in Python.
-- [ ] Calculate precharge time and resistor ratings.
-- [ ] Size fuses and wires.
-- [ ] Draw the BMS-controlled start-up sequence and E-stop loop in KiCad.
-- [ ] Decide on paper whether HVIL or IMD is needed.
-- [ ] Draft PACK message needs and hand them to NET.
-- [ ] Start a short FMEA, since PACK is safety-relevant.
+- [ ] Calculate precharge time and resistor ratings, and size fuses and wires.
+- [ ] Draw the BMS start-up sequence and E-stop loop in KiCad.
+- [ ] Send PACK message needs to NET.
+- [ ] Draft the FMEA.
 
-### Step 5: Spend checkpoint (an hour, free)
+### Step 5: Spend checkpoint
 
-- [ ] Answer the [spend checkpoint](../project/PROJECT.md#checkpoints) questions.
-- [ ] Write down the one question the purchase answers.
-- [ ] Confirm workspace and personal safety spend, including ventilation, is done before any lithium work.
-- [ ] Decide go, adjust, or park.
+- [ ] Confirm the workspace and personal safety spend, including ventilation, is done before any lithium work.
+- [ ] Write the question the purchase answers.
 
-### Step 6: Subsystem MVP (2 to 6 weeks)
+### Step 6: Subsystem MVP
 
-- [ ] Confirm the charging and storage area and the fire response plan are ready.
-- [ ] Decide how to meet the "never work alone on the battery" rule.
-- [ ] Buy cells, fuses, and contactors new, and log each purchase with the PACK code.
+- [ ] Confirm the charging area, storage, and fire response are ready.
+- [ ] Buy cells, fuses, and contactors new.
 - [ ] Build PRT-PACK-01 and run TST-PACK-001.
-- [ ] Judge the result against the pass or fail criterion.
 
-### Step 7: Fold-back (1 to 2 days, free)
+### Step 7: Fold-back
 
-- [ ] Answer the [fold-back checkpoint](../project/PROJECT.md#checkpoints) questions.
-- [ ] Update the system goals, interfaces, and hazard list.
-- [ ] Feed interface changes back to DRV, VCU, CHS, and NET.
-- [ ] Do the enjoyment check. Completing this cycle after DRV reaches Spark, so decide whether to continue.
-- [ ] Write a short process retrospective.
+- [ ] Feed changes back to DRV, VCU, CHS, NET, GOALS, and RISKS.
+- [ ] Decide whether to continue past Spark.
 
 ## Deliverables
 
-- Journal entries and a one-page needs sketch, including the fault list.
-- Paper proof of concept notes: pack sizing, cell model, precharge, fuse and wire sizing, and the start-up and E-stop schematic.
-- Concept comparison and logged decision.
-- Bench results for TST-PACK-001.
-- Updated goals, interfaces, hazard list, and budget tracker.
+Standard cycle deliverables, plus the start-up and E-stop schematic.
 
 ## Spend
 
-Steps 1 to 5 are free. The rough first spend is $100 to $250. Workspace and personal safety spend is budgeted separately in [PROJECT.md](../project/PROJECT.md#budget-and-purchasing).
+$100 to $250. Workspace and safety spend is separate. The upper end can exceed one month's budget, so check the rollover balance.
 
-The upper end can exceed one month's budget. Decide at the spend checkpoint whether rollover covers it.
+## Risks
 
-## Risks and hazards
+RSK-001, RSK-003, RSK-004.
 
-RSK-001 (lithium fire), RSK-003 (short circuit or arc), and RSK-004 (ventilation) apply. See the [register](../subsystems/SUBSYSTEMS.md#seed-hazard-and-risk-register).
+## Decisions
 
-## Decisions to make
+| Decision | Shared with | DEC |
+| --- | --- | --- |
+| Nominal pack voltage | DRV | |
+| Cell chemistry and pack source | none | DEC-004 (proposed) |
+| Charging approach: commercial or builder-designed charger | none | |
+| Whether HVIL or IMD is needed | none | |
 
-| Decision | Shared with |
-| --- | --- |
-| Nominal pack voltage | DRV |
-| Cell chemistry and pack source | None |
-| Charging approach | None |
-| Whether HVIL or IMD is needed | None |
-| How to meet the "never work alone on the battery" rule | Project-wide |
-
-## Checkpoint questions
-
-Use the spend and fold-back questions in [PROJECT.md](../project/PROJECT.md#checkpoints). PACK adds:
+## Checkpoint additions
 
 - Does the fully charged pack stay below 60 V DC?
 - Did every injected fault on the list trip the pack?
@@ -174,16 +113,13 @@ Use the spend and fold-back questions in [PROJECT.md](../project/PROJECT.md#chec
 
 ## Out of scope
 
-- A builder-designed charger, unless chosen in the charging decision.
-- Final pack mounting on a frame. That belongs to CHS and STG-3.
-- A separate power distribution or thermal subsystem.
+- A builder-designed charger, unless the charging decision chooses one.
+- Mounting on a frame (CHS and STG-3).
 
 ## Open items
 
 | # | Open item | Owner |
 | --- | --- | --- |
-| 1 | Targets for REQ-PACK-003 to REQ-PACK-010 | Builder decision |
-| 2 | Fault list for REQ-PACK-002 and TST-PACK-001 | PACK cycle |
-| 3 | Number of series cells for the bench pack | Builder decision |
-| 4 | Workspace ventilation and charging area | Builder decision |
-| 5 | PACK message content on the bus | PACK cycle, with NET |
+| 1 | How to meet "never work alone on the battery" as a solo builder | Builder decision |
+| 2 | Number of series cells for the bench pack | Builder decision |
+| 3 | Fault list for REQ-SAF-003 | This cycle, step 2 |

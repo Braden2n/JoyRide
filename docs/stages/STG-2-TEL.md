@@ -1,156 +1,110 @@
 ---
 id: STG-2-TEL
-title: "Stage 2: TEL subsystem cycle"
-status: draft
-owner: Braden Toone (builder)
-last_updated: 2026-10-06
-subsystem: SUB-TEL
+status: Not started
+updated: 2026-10-06
+stage_type: cycle
+subsystem: TEL
 spark: not yet decided
-source_sections: [8, 9, 10, 13]
 ---
 
-# STG-2-TEL: Telemetry and apps cycle
+# STG-2-TEL: Telemetry and apps
 
 ## Purpose
 
-This cycle builds a logger and web dashboard, first on simulated data and then on live CAN data. TEL is the hub for monitoring, debugging, and validation.
+Build a logger and web dashboard, first on simulated data and then on live CAN data.
 
-## Inputs
+## Entry and exit
 
-- [Subsystem cycle template](../project/PROJECT.md#subsystem-cycle)
-- [TEL subsystem definition](../subsystems/SUBSYSTEMS.md#tel-telemetry-and-apps)
-- [System goals](STG-1-ARCHITECTURE.md#requirements)
-- The DBC from [STG-2-NET](STG-2-NET.md), as far as it exists
+- Entry: the VCU fold-back chose TEL.
+- Exit: the fold-back checkpoint is answered, or the cycle is parked at the spend checkpoint.
 
-**Neighbors to review.** No subsystem is defined in isolation. This cycle reviews these interfaces and feeds changes back.
+## Inputs and neighbors
 
-| Neighbor | What to review |
-| --- | --- |
-| [NET](../subsystems/SUBSYSTEMS.md#net-network-and-harness) | DBC as the data contract; CAN hardware for live data |
-| [VCU](../subsystems/SUBSYSTEMS.md#vcu-vehicle-control-unit) | Status and fault reports; dashboard decision |
-| [PACK](../subsystems/SUBSYSTEMS.md#pack-battery-pack-bms-and-power-distribution), [DRV](../subsystems/SUBSYSTEMS.md#drv-motor-and-drive) | Data they publish on the bus |
+- The DBC from NET, as far as it exists.
+- Neighbors: NET, VCU, PACK, DRV. Interfaces are in [SUBSYSTEMS.md](../architecture/SUBSYSTEMS.md#tel-telemetry-and-apps).
 
 ## Goals
 
-- Build working vocabulary in CAN logging, data formats, and simple web dashboards.
-- Define a data schema and dashboard views.
-- Show simulated, then live, CAN data on a dashboard with a debug view.
+- A data schema and dashboard views.
+- A dashboard and debug view on simulated, then live, CAN data.
 
-## Requirements
+## System goals served
 
-No section 7 system goal is tagged to TEL yet. Values are TBD.
-
-| ID | Requirement | Target | How to check | Source |
-| --- | --- | --- | --- | --- |
-| REQ-TEL-001 | TEL logs data from the CAN bus. | TBD | Test | Section 8 responsibilities |
-| REQ-TEL-002 | TEL shows detailed and debug information on a web or mobile dashboard. | TBD | Demo | Section 8 responsibilities |
-| REQ-TEL-003 | TEL supports analysis of logged data in Python. | TBD | Demo | Section 8 responsibilities |
-| REQ-TEL-004 | TEL listens on the bus without control authority. | Listen only | Inspection | Section 8 boundaries |
+None yet. TEL may need a system goal.
 
 ## Tasks
 
-### Step 1: Learning burst (3 to 7 days, free)
+### Step 1: Learning burst
 
 - [ ] Study CAN logging and data formats.
-- [ ] Study WebSocket or MQTT, or another way to move live data.
-- [ ] Study simple web dashboards.
-- [ ] Review Python analysis of logged data.
-- [ ] Keep a "what I still don't understand" list.
+- [ ] Study a live data transport, such as WebSocket or MQTT.
+- [ ] Study simple web dashboards and Python analysis of logs.
 
-### Step 2: Needs and MVP sketch (1 to 2 days, free)
+### Step 2: Needs and MVP sketch
 
-- [ ] Write a one-page needs sketch: what TEL must do, key numbers, interfaces to neighbors, and safety concerns.
-- [ ] Note TEL's failure behavior. TEL failing must not affect driving.
-- [ ] Confirm or change the draft subsystem MVP below.
+- [ ] Create `subsystems/TEL/docs/` from the subsystem templates.
+- [ ] Write REQUIREMENTS.md. TEL has listen-only authority, and its failure must not affect driving.
+- [ ] Confirm the draft MVP below.
 
-Draft subsystem MVP (proposed, builder to confirm):
-
-| Item | Draft |
+| MVP | Draft (proposed, builder to confirm) |
 | --- | --- |
-| Prototype | PRT-TEL-01: a logger and web dashboard |
-| Setup | Simulated CAN data first, then live CAN data |
+| Prototype | PRT-TEL-01: a logger and web dashboard with a debug view |
 | Test | TST-TEL-001 |
-| Pass or fail criterion | Pass if the dashboard and debug view show simulated data and then live CAN data, and the log can be analyzed in Python. Data rates TBD. |
+| Pass or fail | The dashboard shows simulated and then live CAN data, and the log can be analyzed in Python. Data rates TBD. |
 
-### Step 3: Concepts (1 to 3 days, free)
+### Step 3: Concepts
 
-- [ ] Sketch two or three options (buy, adapt open source, build) and compare them informally. Weigh learning value, cost, and fit.
-- [ ] Treat safety as a pass or fail screen.
-- [ ] Log the choice and the rejected options in the decision log.
+- [ ] Compare LEDs only, a small embedded display, and a phone or laptop web app.
 
-Concept scoring is left blank on purpose. The rows are the dashboard options from the launch document.
-
-| ID | Concept | Learning value | Cost | Fit | Safety screen |
-| --- | --- | --- | --- | --- | --- |
-| CON-TEL-A | LEDs only | | | | |
-| CON-TEL-B | A small embedded display | | | | |
-| CON-TEL-C | A phone or laptop web app | | | | |
-
-### Step 4: Paper proof of concept (1 to 2 weeks, free)
+### Step 4: Paper proof of concept
 
 - [ ] Mock up the dashboard and debug views.
-- [ ] Define a data schema.
-- [ ] Test the mock-up on simulated data.
+- [ ] Define a data schema, and test it on simulated data.
 
-### Step 5: Spend checkpoint (an hour, free)
+### Step 5: Spend checkpoint
 
-- [ ] Answer the [spend checkpoint](../project/PROJECT.md#checkpoints) questions.
 - [ ] Decide whether a software-only start is enough for now.
-- [ ] Decide go, adjust, or park.
 
-### Step 6: Subsystem MVP (2 to 6 weeks)
+### Step 6: Subsystem MVP
 
-- [ ] Build the logger and dashboard on simulated data.
-- [ ] Buy any hardware needed for live data, and log each purchase with the TEL code.
-- [ ] Run TST-TEL-001 and judge the result against the pass or fail criterion.
+- [ ] Build PRT-TEL-01 on simulated data, then on live data, and run TST-TEL-001.
 
-### Step 7: Fold-back (1 to 2 days, free)
+### Step 7: Fold-back
 
-- [ ] Answer the [fold-back checkpoint](../project/PROJECT.md#checkpoints) questions.
-- [ ] Update the system goals, interfaces, and hazard list.
 - [ ] Feed schema and message changes back to NET and VCU.
-- [ ] Do the enjoyment check, and choose the next subsystem.
-- [ ] Write a short process retrospective.
 
 ## Deliverables
 
-- Journal entries and a one-page needs sketch.
-- Dashboard mock-ups and a data schema.
-- Concept comparison and logged decision.
-- A working logger and dashboard, with TST-TEL-001 results.
-- Updated goals, interfaces, hazard list, and budget tracker.
+Standard cycle deliverables, plus the dashboard mock-ups and the data schema.
 
 ## Spend
 
-Steps 1 to 5 are free. The rough first spend is $10 to $30, and a software-only start is free. See [PROJECT.md](../project/PROJECT.md#budget-and-purchasing).
+$10 to $30. A software-only start is free.
 
-## Risks and hazards
+## Risks
 
-No seed risk applies directly to TEL. Review the [register](../subsystems/SUBSYSTEMS.md#seed-hazard-and-risk-register) at fold-back.
+None in the register.
 
-## Decisions to make
+## Decisions
 
-| Decision | Shared with |
-| --- | --- |
-| Dashboard approach | VCU |
-| Live data transport | NET |
+| Decision | Shared with | DEC |
+| --- | --- | --- |
+| Dashboard approach | VCU | |
+| Live data transport | NET | |
 
-## Checkpoint questions
-
-Use the spend and fold-back questions in [PROJECT.md](../project/PROJECT.md#checkpoints). TEL adds:
+## Checkpoint additions
 
 - Can the builder diagnose a fault from the dashboard and logs alone?
 
 ## Out of scope
 
-- Control authority of any kind.
-- A configuration app. That is a later target in the skills table.
+- Any control authority.
+- A configuration app (a later skills target).
 
 ## Open items
 
 | # | Open item | Owner |
 | --- | --- | --- |
-| 1 | Targets for REQ-TEL-001 to REQ-TEL-003 | Builder decision |
-| 2 | Whether TEL needs a section 7 system goal | Builder decision |
-| 3 | CAN hardware for live data, shared with NET | TEL with NET |
-| 4 | Whether TEL is part of Spark | Builder decision |
+| 1 | Whether TEL needs a system goal | Builder decision |
+| 2 | CAN hardware for live data, shared with NET | This cycle, with NET |
+| 3 | Whether TEL is part of Spark | Builder decision |

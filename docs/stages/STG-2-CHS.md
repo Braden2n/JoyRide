@@ -1,146 +1,100 @@
 ---
 id: STG-2-CHS
-title: "Stage 2: CHS subsystem cycle"
-status: draft
-owner: Braden Toone (builder)
-last_updated: 2026-10-06
-subsystem: SUB-CHS
-spark: not part of Spark
-source_sections: [7, 8, 9, 10, 12, 13]
+status: Not started
+updated: 2026-10-06
+stage_type: cycle
+subsystem: CHS
+spark: no
 ---
 
-# STG-2-CHS: Chassis and mechanical cycle
+# STG-2-CHS: Chassis and mechanical
 
 ## Purpose
 
-This cycle lays out where PACK and DRV mount and how mass is distributed, before any frame is bought. CHS is third in the recommended order. It is not part of Spark, but it must be addressed for later levels.
+Lay out where PACK and DRV mount and how the mass is distributed, before buying a frame. CHS is not part of Spark, but later levels need it.
 
-## Inputs
+## Entry and exit
 
-- [Subsystem cycle template](../project/PROJECT.md#subsystem-cycle)
-- [CHS subsystem definition](../subsystems/SUBSYSTEMS.md#chs-chassis-and-mechanical)
-- [System goals](STG-1-ARCHITECTURE.md#requirements), especially the Stage 1 design mass
-- PACK and DRV sizes from [STG-2-PACK](STG-2-PACK.md) and [STG-2-DRV](STG-2-DRV.md)
+- Entry: the PACK fold-back chose CHS.
+- Exit: the fold-back checkpoint is answered, or the cycle is parked at the spend checkpoint.
 
-**Neighbors to review.** No subsystem is defined in isolation. This cycle reviews these interfaces and feeds changes back.
+## Inputs and neighbors
 
-| Neighbor | What to review |
-| --- | --- |
-| [PACK](../subsystems/SUBSYSTEMS.md#pack-battery-pack-bms-and-power-distribution) | Pack mount points, enclosure, and E-stop placement |
-| [DRV](../subsystems/SUBSYSTEMS.md#drv-motor-and-drive) | Motor and gearing mounts, drive wheel connection |
-| [VCU](../subsystems/SUBSYSTEMS.md#vcu-vehicle-control-unit) | Node mount and driver controls |
-| [NET](../subsystems/SUBSYSTEMS.md#net-network-and-harness) | Harness routing |
+- PACK and DRV sizes from their cycles, and the design mass in [GOALS.md](../project/GOALS.md).
+- Neighbors: PACK, DRV, VCU, NET. Interfaces are in [SUBSYSTEMS.md](../architecture/SUBSYSTEMS.md#chs-chassis-and-mechanical).
 
 ## Goals
 
-- Build working vocabulary in kart geometry, steering, braking, and CAD.
-- Lay out PACK and DRV on a generic frame envelope.
-- Know what to measure before buying a used frame.
+- PACK and DRV laid out on a generic frame envelope in CAD.
+- A list of what to measure before buying a used frame.
 
-## Requirements
+## System goals served
 
-Values are TBD unless the builder fixed them.
-
-| ID | Requirement | Target | How to check | Source |
-| --- | --- | --- | --- | --- |
-| REQ-SYS-003 | Carries the design load, driver plus kart (system goal) | Per [STG-1](STG-1-ARCHITECTURE.md#requirements) | Test and analysis | Section 7 |
-| REQ-CHS-001 | Brakes work independently of the electrics. | Mechanical only | Inspection and test | Section 8 boundaries |
-| REQ-CHS-002 | The chassis provides mount points for PACK and DRV. | TBD | CAD layout and fit check | Section 8 boundaries |
-| REQ-CHS-003 | The chassis provides steering. | TBD | Test | Section 8 responsibilities |
-| REQ-CHS-004 | Mass distribution is acceptable at the design mass. | TBD | Analysis | Section 10 |
+REQ-SYS-003.
 
 ## Tasks
 
-### Step 1: Learning burst (3 to 7 days, free)
+### Step 1: Learning burst
 
-- [ ] Study basic kart geometry.
-- [ ] Study steering and braking.
+- [ ] Study basic kart geometry, steering, and braking.
 - [ ] Study fasteners and welds.
-- [ ] Learn FreeCAD basics, or another free CAD tool.
-- [ ] Keep a "what I still don't understand" list.
+- [ ] Learn the basics of a free CAD tool, such as FreeCAD.
 
-### Step 2: Needs and MVP sketch (1 to 2 days, free)
+### Step 2: Needs and MVP sketch
 
-- [ ] Write a one-page needs sketch: what CHS must do, key numbers, interfaces to neighbors, and safety concerns.
-- [ ] Note the chassis safe state and failure behavior.
-- [ ] Confirm or change the draft subsystem MVP below.
+- [ ] Create `subsystems/CHS/docs/` from the subsystem templates.
+- [ ] Write REQUIREMENTS.md, including brakes independent of the electrics.
+- [ ] Confirm the draft MVP below.
 
-Draft subsystem MVP (proposed, builder to confirm):
-
-| Item | Draft |
+| MVP | Draft (proposed, builder to confirm) |
 | --- | --- |
-| Prototype | PRT-CHS-01: a CAD layout plus a cardboard mock-up. A printed mock-up needs a 3D printer, which the builder does not own. |
-| Setup | PACK and DRV envelopes placed on a generic frame envelope |
+| Prototype | PRT-CHS-01: a CAD layout plus a cardboard mock-up |
 | Test | TST-CHS-001 |
-| Pass or fail criterion | Pass if PACK and DRV fit the layout with their mount points defined, and mass distribution is estimated. Also pass only if a list of used-frame measurements exists. |
+| Pass or fail | PACK and DRV fit with defined mount points, mass distribution is estimated, and a used-frame measurement list exists. |
 
-### Step 3: Concepts (1 to 3 days, free)
+### Step 3: Concepts
 
-- [ ] Sketch two or three frame options and compare them informally. Weigh learning value, cost, and fit.
-- [ ] Treat safety as a pass or fail screen.
-- [ ] Log the choice and the rejected options in the decision log.
+- [ ] Compare a used kart frame, a kit frame, and a custom welded frame.
 
-Concept scoring is left blank on purpose.
+### Step 4: Paper proof of concept
 
-| ID | Concept | Learning value | Cost | Fit | Safety screen |
-| --- | --- | --- | --- | --- | --- |
-| CON-CHS-A | Used kart frame | | | | |
-| CON-CHS-B | Kit frame | | | | |
-| CON-CHS-C | Custom welded | | | | |
-
-### Step 4: Paper proof of concept (1 to 2 weeks, free)
-
-- [ ] Lay out PACK and DRV mount locations and enclosures in CAD on a generic frame envelope.
-- [ ] Estimate mass distribution at the Stage 1 design mass.
+- [ ] Lay out PACK and DRV mounts and enclosures on a generic frame envelope.
+- [ ] Estimate mass distribution at the design mass.
 - [ ] Design brackets in CAD.
-- [ ] List the measurements to take on a used frame before buying.
 
-### Step 5: Spend checkpoint (an hour, free)
+### Step 5: Spend checkpoint
 
-- [ ] Answer the [spend checkpoint](../project/PROJECT.md#checkpoints) questions.
-- [ ] Write down the one question the purchase answers.
-- [ ] Decide go, adjust, or park.
+- [ ] Write the question the purchase answers.
 
-### Step 6: Subsystem MVP (2 to 6 weeks)
+### Step 6: Subsystem MVP
 
 - [ ] Build PRT-CHS-01 and run TST-CHS-001.
-- [ ] Measure a used frame before buying one. Buy the frame late, at integration.
-- [ ] Judge the result against the pass or fail criterion.
+- [ ] Measure a used frame before buying one. Buy the frame at integration.
 
-### Step 7: Fold-back (1 to 2 days, free)
+### Step 7: Fold-back
 
-- [ ] Answer the [fold-back checkpoint](../project/PROJECT.md#checkpoints) questions.
-- [ ] Update the system goals, interfaces, and hazard list.
-- [ ] Feed mounting changes back to PACK, DRV, VCU, and NET.
-- [ ] Do the enjoyment check, and choose the next subsystem.
-- [ ] Write a short process retrospective.
+- [ ] Feed mounting changes back to PACK, DRV, VCU, NET, GOALS, and RISKS.
 
 ## Deliverables
 
-- Journal entries and a one-page needs sketch.
-- CAD layout, bracket designs, and mass distribution estimate.
-- Concept comparison and logged decision.
-- Mock-up and a used-frame measurement list.
-- Updated goals, interfaces, hazard list, and budget tracker.
+Standard cycle deliverables, plus the CAD layout and the frame measurement list.
 
 ## Spend
 
-Steps 1 to 5 are free. The rough first spend is $0 to $50. The frame itself is part of MVP kart parts in [PROJECT.md](../project/PROJECT.md#budget-and-purchasing).
+$0 to $50. The frame is part of the kart MVP parts budget.
 
-## Risks and hazards
+## Risks
 
-RSK-005 (loss of braking) and RSK-006 (structural failure) apply. See the [register](../subsystems/SUBSYSTEMS.md#seed-hazard-and-risk-register).
+RSK-005, RSK-006.
 
-## Decisions to make
+## Decisions
 
-| Decision | Shared with |
-| --- | --- |
-| Frame | None |
-| Mock-up method (cardboard or printed) | None |
+| Decision | Shared with | DEC |
+| --- | --- | --- |
+| Frame | none | |
+| E-stop placement within the driver's reach | PACK | |
 
-## Checkpoint questions
-
-Use the spend and fold-back questions in [PROJECT.md](../project/PROJECT.md#checkpoints). CHS adds:
+## Checkpoint additions
 
 - Do PACK and DRV fit with room for wiring and service?
 - Do the brakes stay independent of the electrics?
@@ -148,13 +102,10 @@ Use the spend and fold-back questions in [PROJECT.md](../project/PROJECT.md#chec
 ## Out of scope
 
 - Buying a frame before integration.
-- Spark. CHS is not part of Spark.
-- A 3D printer purchase, unless a later cycle justifies it.
+- Buying a 3D printer, unless a later cycle justifies it.
 
 ## Open items
 
 | # | Open item | Owner |
 | --- | --- | --- |
-| 1 | Targets for REQ-CHS-002 to REQ-CHS-004 | Builder decision |
-| 2 | Pass or fail criterion for TST-CHS-001 | Builder decision |
-| 3 | E-stop placement within reach of the driver | CHS with PACK |
+| 1 | A printed mock-up needs a 3D printer, which the builder does not own. Cardboard is the default. | Builder decision |

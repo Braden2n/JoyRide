@@ -1,77 +1,92 @@
 ---
 id: STG-2-RMT
-title: "Stage 2: RMT subsystem cycle (optional)"
-status: draft
-owner: Braden Toone (builder)
-last_updated: 2026-10-06
-subsystem: SUB-RMT
-optional: true
+status: Not started
+updated: 2026-10-06
+stage_type: cycle
+subsystem: RMT
 spark: not yet decided
-source_sections: [8, 10, 13]
 ---
 
-# STG-2-RMT: Remote and wireless cycle (optional)
-
-This is a stub. RMT is a parking-lot idea, considered only after the core subsystems are done.
+# STG-2-RMT: Remote and wireless (optional)
 
 ## Purpose
 
-Explore a remote kill, speed limiting, and wireless configuration, with safe failsafe behavior.
+Explore a remote kill, speed limiting, and wireless configuration that fail safe. This is a parking-lot idea until the core subsystems are done.
 
-## Inputs
+## Entry and exit
 
-- [Subsystem cycle template](../project/PROJECT.md#subsystem-cycle)
-- [RMT subsystem definition](../subsystems/SUBSYSTEMS.md#rmt-remote-and-wireless-optional)
+- Entry: the core subsystems are done, and the builder chooses to start RMT.
+- Exit: the fold-back checkpoint is answered, or the cycle is parked.
 
-**Neighbors to review:** VCU (speed limiting and torque removal), NET (wireless gateway), PACK (safe state).
+## Inputs and neighbors
+
+- Neighbors: VCU, NET, PACK. Interfaces are in [SUBSYSTEMS.md](../architecture/SUBSYSTEMS.md#rmt-remote-and-wireless-optional).
 
 ## Goals
 
-- Design a remote kill with a failsafe that removes torque.
+- A remote kill whose link loss removes torque.
 
-## Requirements
+## System goals served
 
-| ID | Requirement | Target | How to check | Source |
-| --- | --- | --- | --- | --- |
-| REQ-RMT-001 | Loss of the wireless link fails toward de-energized. | TBD | Failsafe test | Sections 10, 12 |
+None yet.
 
 ## Tasks
 
-- [ ] Step 1, learning burst: wireless link basics (ELRS or BLE), failsafe behavior, wireless safety.
-- [ ] Step 2, needs and MVP sketch: draft MVP is a wireless link between two dev boards with a failsafe test. Pass or fail criterion TBD (proposed, builder to confirm).
-- [ ] Step 3, concepts: two or three link options. Scoring left blank.
-- [ ] Step 4, paper proof of concept: design the remote kill concept and its failsafe behavior.
-- [ ] Step 5, spend checkpoint: go, adjust, or park.
-- [ ] Step 6, subsystem MVP: build the link and run the failsafe test.
-- [ ] Step 7, fold-back: update goals, interfaces, and hazards.
+### Step 1: Learning burst
+
+- [ ] Study wireless link basics (for example ELRS or BLE), failsafe behavior, and wireless safety.
+
+### Step 2: Needs and MVP sketch
+
+- [ ] Draft MVP: a wireless link between two dev boards with a failsafe test. Pass or fail TBD (proposed, builder to confirm).
+
+### Step 3: Concepts
+
+- [ ] Compare two or three link options.
+
+### Step 4: Paper proof of concept
+
+- [ ] Design the remote kill and its failsafe behavior.
+
+### Step 5: Spend checkpoint
+
+- [ ] Go, adjust, or park.
+
+### Step 6: Subsystem MVP
+
+- [ ] Build the link and run the failsafe test.
+
+### Step 7: Fold-back
+
+- [ ] Feed changes back to VCU, NET, GOALS, and RISKS.
 
 ## Deliverables
 
-- A remote kill design and failsafe test results.
+Standard cycle deliverables.
 
 ## Spend
 
-Rough first spend: $30 to $60.
+$30 to $60.
 
-## Risks and hazards
+## Risks
 
-RSK-002 (unintended acceleration) and RSK-007 (injury while driving) are related. See the [register](../subsystems/SUBSYSTEMS.md#seed-hazard-and-risk-register).
+RSK-002, RSK-007.
 
-## Decisions to make
+## Decisions
 
-- Whether to start RMT at all.
-- Wireless link type.
+| Decision | Shared with | DEC |
+| --- | --- | --- |
+| Whether to start RMT | none | |
+| Wireless link type | NET | |
 
-## Checkpoint questions
+## Checkpoint additions
 
-Use the spend and fold-back questions in [PROJECT.md](../project/PROJECT.md#checkpoints).
+- Does link loss always remove torque?
 
 ## Out of scope
 
-- Replacing the hardware E-stop. A remote kill is an addition, not a substitute.
+- Replacing the hardware E-stop.
 
 ## Open items
 
-| # | Open item | Owner |
-| --- | --- | --- |
-| 1 | Target for REQ-RMT-001 | Builder decision |
+None.
