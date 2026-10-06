@@ -1,20 +1,8 @@
 name: Task
-description: A JoyRide backlog task. Cite it by its issue number (#N).
+description: Work to do. Set the milestone to the stage, add a sub label, and fill Status, Cycle step, and Estimate on the JoyRide project.
+labels: ["type: task"]
+projects: ["Braden2n/1"]
 body:
-  - type: dropdown
-    id: stage
-    attributes:
-      label: Stage
-      options: [STG-1, STG-2-DRV, STG-2-PACK, STG-2-CHS, STG-2-VCU, STG-2-TEL, STG-2-NET, STG-2-TMS, STG-2-RMT, STG-3, None]
-    validations:
-      required: true
-  - type: dropdown
-    id: step
-    attributes:
-      label: Cycle step
-      options: [Not a cycle task, 1 Learning burst, 2 Needs and MVP sketch, 3 Concepts, 4 Paper proof of concept, 5 Spend checkpoint, 6 Subsystem MVP, 7 Fold-back]
-    validations:
-      required: true
   - type: textarea
     id: task
     attributes:
@@ -28,9 +16,3 @@ body:
       label: Done when
     validations:
       required: true
-  - type: checkboxes
-    id: parking
-    attributes:
-      label: Parking lot
-      options:
-        - label: New idea outside current scope

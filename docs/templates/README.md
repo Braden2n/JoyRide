@@ -20,7 +20,8 @@ Every repeated document has a template, and every ID type has a schema. Placemen
 | [subsystem/README.md](subsystem/README.md) | Subsystem home index | `subsystems/<CODE>/docs/` |
 | [subsystem/REQUIREMENTS.md](subsystem/REQUIREMENTS.md) | Subsystem requirements | `subsystems/<CODE>/docs/` |
 | [subsystem/CYCLE.md](subsystem/CYCLE.md) | Subsystem cycle record | `subsystems/<CODE>/docs/` |
-| [task.yml](../../.github/ISSUE_TEMPLATE/task.yml) | Backlog tasks | GitHub issues |
+| [task.yml](../../.github/ISSUE_TEMPLATE/task.yml) | Tasks | GitHub issues |
+| [decision.yml](../../.github/ISSUE_TEMPLATE/decision.yml) | Builder decisions and open assessments | GitHub issues |
 
 ## ID formats
 
@@ -40,14 +41,14 @@ Codes: subsystem codes are DRV, PACK, CHS, VCU, TEL, NET, TMS, and RMT. System c
 | TST | `TST-<code or SYS>-NNN` | File | Subsystem `docs/tests/`; root for SYS |
 | PRT | `PRT-<code>-NN` | Row | Subsystem `CYCLE.md` |
 | LRN | `LRN-NNN` | Row | `docs/project/GOALS.md` |
-| Task | `#N`, GitHub's issue number (no project prefix) | Issue | GitHub issues |
+| Issue | `#N`, GitHub's issue number (no project prefix) | Issue | GitHub issues |
 
 ## Status values
 
 | Records | Values |
 | --- | --- |
 | STG, LRN | Not started, In progress, Blocked, Done |
-| Task | Open or closed, in GitHub |
+| Issue | Todo, In progress, Blocked, Done (JoyRide project Status) |
 | REQ, NEED | Draft, Agreed, Verified, Dropped |
 | DEC | Proposed, Accepted, Superseded |
 | RSK | Open, Mitigated, Closed |
@@ -70,6 +71,8 @@ Column order is fixed. A future CSV tracker uses the same columns.
 | CON | ID, Concept, Learning value, Cost, Fit, Safety screen (pass or fail), Status |
 | PRT | ID, Description, Answers (question), Tests, Status |
 | ICD list row | ID, Between, Type, Status |
+
+A record created or changed through an issue cites it. A row cites it in its Status cell, for example "Agreed (resolved in #12)". A file cites it in its first section.
 
 Example subsystem requirement row:
 

@@ -24,8 +24,29 @@ Core-document rules:
 - Treat stage tasks and the cycle as recommendations. The builder's latest instruction wins.
 - Never invent a value. Write TBD and add an open item to the owning document.
 - Ask before resolving anything marked "builder decision".
-- Do not add scope. New ideas go to the backlog as an issue with the parking-lot box ticked.
+- Do not add scope. New ideas go to the backlog as an issue labeled `parking lot`.
 - Named parts, tools, and protocols are examples, not decisions, until a DEC accepts them.
+
+## Action items
+
+- Track every action item and open assessment as a GitHub issue, using the Task or Decision form.
+- Documents do not link to issues, and do not keep their own to-do lists. The exceptions are stage tasks and stage open items.
+- Any record that an issue creates or changes cites that issue as its source, for example "Resolved in #12". This covers every ID type, plus document changes.
+- Close the issue once the documents are updated.
+
+Every issue carries this metadata:
+
+| Field | Where | Values |
+| --- | --- | --- |
+| Stage | Milestone | One milestone per STG, such as "STG-2-DRV Motor and drive". Leave empty for project-wide work. |
+| Type | Label | `type: task`, `type: decision`, `type: purchase`, `type: test`, `type: docs` |
+| Subsystem | Label | `sub: <CODE>`, or `sub: system` for cross-cutting work |
+| Out of scope | Label | `parking lot` |
+| Status | [JoyRide project](https://github.com/users/Braden2n/projects/1) | Todo, In progress, Blocked, Done |
+| Cycle step | JoyRide project | 1 to 7, or Not a cycle task |
+| Estimate | JoyRide project | Hours, to plan against 6 to 10 hours a week |
+
+The forms set the type label and add the issue to the project. Set the milestone, subsystem label, and project fields when filing.
 
 ## Layout
 
@@ -33,7 +54,7 @@ The ID prefix decides where a record lives. Global IDs live in the root. IDs tha
 
 ```
 CLAUDE.md                          these rules
-.github/ISSUE_TEMPLATE/task.yml    task issue form (GitHub issues, cited as #N)
+.github/ISSUE_TEMPLATE/          Task and Decision issue forms (issues are cited as #N)
 docs/
   README.md                        index
   project/PROJECT.md               charter, constraints, process, safety, budget, rhythm

@@ -11,7 +11,7 @@ updated: <YYYY-MM-DD>
 
 ## Context
 
-<What forced the decision. Cite the IDs it affects (STG, REQ, RSK, ICD).>
+<What forced the decision. Cite the IDs it affects (STG, REQ, RSK, ICD) and the resolving issue (#N), if any.>
 
 ## Options
 

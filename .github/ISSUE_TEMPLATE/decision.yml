@@ -1,0 +1,24 @@
+name: Decision
+description: A builder decision or open assessment. Set the milestone to the stage that needs it, and add a sub label.
+labels: ["type: decision"]
+projects: ["Braden2n/1"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: The decision to make. Cite related IDs (REQ, DEC, RSK, ICD).
+    validations:
+      required: true
+  - type: textarea
+    id: options
+    attributes:
+      label: Options
+      description: Options known so far, or "TBD".
+  - type: textarea
+    id: resolves-into
+    attributes:
+      label: Resolves into
+      description: Where the answer is recorded, such as a new DEC, a REQ target, or a doc change. That record cites this issue as "Resolved in #N".
+    validations:
+      required: true
