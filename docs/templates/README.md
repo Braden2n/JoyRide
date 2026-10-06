@@ -20,7 +20,7 @@ Every repeated document has a template, and every ID type has a schema. Placemen
 | [subsystem/README.md](subsystem/README.md) | Subsystem home index | `subsystems/<CODE>/docs/` |
 | [subsystem/REQUIREMENTS.md](subsystem/REQUIREMENTS.md) | Subsystem requirements | `subsystems/<CODE>/docs/` |
 | [subsystem/CYCLE.md](subsystem/CYCLE.md) | Subsystem cycle record | `subsystems/<CODE>/docs/` |
-| [task.yml](../../.github/ISSUE_TEMPLATE/task.yml) | TSK backlog items | GitHub issues |
+| [task.yml](../../.github/ISSUE_TEMPLATE/task.yml) | Backlog tasks | GitHub issues |
 
 ## ID formats
 
@@ -40,13 +40,14 @@ Codes: subsystem codes are DRV, PACK, CHS, VCU, TEL, NET, TMS, and RMT. System c
 | TST | `TST-<code or SYS>-NNN` | File | Subsystem `docs/tests/`; root for SYS |
 | PRT | `PRT-<code>-NN` | Row | Subsystem `CYCLE.md` |
 | LRN | `LRN-NNN` | Row | `docs/project/GOALS.md` |
-| TSK | `TSK-NNNN`, the GitHub issue number | Issue | GitHub |
+| Task | `#N`, GitHub's issue number (no project prefix) | Issue | GitHub issues |
 
 ## Status values
 
 | Records | Values |
 | --- | --- |
-| STG, LRN, TSK | Not started, In progress, Blocked, Done |
+| STG, LRN | Not started, In progress, Blocked, Done |
+| Task | Open or closed, in GitHub |
 | REQ, NEED | Draft, Agreed, Verified, Dropped |
 | DEC | Proposed, Accepted, Superseded |
 | RSK | Open, Mitigated, Closed |

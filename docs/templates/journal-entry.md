@@ -18,7 +18,7 @@ Delete these comments.
 
 ## Summary
 
-<What happened. Cite TSK, DEC, TST, and RSK IDs.>
+<What happened. Cite issues as #N, and DEC, TST, and RSK IDs.>
 
 ## Decisions
 

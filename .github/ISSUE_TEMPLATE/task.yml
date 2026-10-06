@@ -1,6 +1,5 @@
 name: Task
-description: A JoyRide backlog task (TSK). The issue number is the TSK number.
-title: "TSK: "
+description: A JoyRide backlog task. Cite it by its issue number (#N).
 body:
   - type: dropdown
     id: stage

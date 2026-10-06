@@ -24,7 +24,7 @@ Core-document rules:
 - Treat stage tasks and the cycle as recommendations. The builder's latest instruction wins.
 - Never invent a value. Write TBD and add an open item to the owning document.
 - Ask before resolving anything marked "builder decision".
-- Do not add scope. New ideas go to the backlog with the label "parking lot".
+- Do not add scope. New ideas go to the backlog as an issue with the parking-lot box ticked.
 - Named parts, tools, and protocols are examples, not decisions, until a DEC accepts them.
 
 ## Layout
@@ -33,7 +33,7 @@ The ID prefix decides where a record lives. Global IDs live in the root. IDs tha
 
 ```
 CLAUDE.md                          these rules
-.github/ISSUE_TEMPLATE/task.yml    TSK backlog items (GitHub issues)
+.github/ISSUE_TEMPLATE/task.yml    task issue form (GitHub issues, cited as #N)
 docs/
   README.md                        index
   project/PROJECT.md               charter, constraints, process, safety, budget, rhythm
@@ -109,7 +109,7 @@ Unnecessary, so leave it out:
 
 | Event | Update |
 | --- | --- |
-| Weekly session | Write a journal entry. Tick stage tasks. Update TSK issues. |
+| Weekly session | Write a journal entry. Tick stage tasks. Update task issues. |
 | Decision made | Add a DEC file and a decision log row. Link the DEC from the stage document's Decisions table. |
 | Checkpoint held | Write a journal entry from the checkpoint variant. Update the stage document's status and open items. |
 | Goal or risk changes | Edit its row in GOALS.md or RISKS.md. Note why in the journal. |

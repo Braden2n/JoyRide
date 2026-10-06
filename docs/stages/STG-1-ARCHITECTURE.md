@@ -78,7 +78,7 @@ Spend about 3 to 4 hours per stream, and end each with a short note on what it m
 - [x] Write [CLAUDE.md](../../CLAUDE.md).
 - [x] Create GOALS.md, RISKS.md, and the decision log.
 - [x] Slim PROJECT.md and SUBSYSTEMS.md.
-- [x] Create the templates and the TSK issue form.
+- [x] Create the templates and the task issue form.
 - [x] Conform the stage documents to the stage template.
 - [x] Dissolve the launch document ([DEC-007](../decisions/DEC-007-dissolve-launch-document.md)).
 - [x] Done when every multi-file folder conforms to its template.
