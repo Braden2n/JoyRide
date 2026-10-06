@@ -1,0 +1,37 @@
+name: Task
+description: A JoyRide backlog task (TSK). The issue number is the TSK number.
+title: "TSK: "
+body:
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Stage
+      options: [STG-1, STG-2-DRV, STG-2-PACK, STG-2-CHS, STG-2-VCU, STG-2-TEL, STG-2-NET, STG-2-TMS, STG-2-RMT, STG-3, None]
+    validations:
+      required: true
+  - type: dropdown
+    id: step
+    attributes:
+      label: Cycle step
+      options: [Not a cycle task, 1 Learning burst, 2 Needs and MVP sketch, 3 Concepts, 4 Paper proof of concept, 5 Spend checkpoint, 6 Subsystem MVP, 7 Fold-back]
+    validations:
+      required: true
+  - type: textarea
+    id: task
+    attributes:
+      label: Task
+      description: A short imperative. Cite related IDs (REQ, DEC, RSK, ICD).
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: Done when
+    validations:
+      required: true
+  - type: checkboxes
+    id: parking
+    attributes:
+      label: Parking lot
+      options:
+        - label: New idea outside current scope
