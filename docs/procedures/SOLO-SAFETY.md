@@ -6,7 +6,7 @@ updated: 2026-10-08
 
 # Solo work safety plan
 
-Drafted for [#8](https://github.com/Braden2n/JoyRide/issues/8). The builder always works alone, so this plan replaces the "never work alone on the battery" rule in [PROJECT.md](../project/PROJECT.md#safety) until the builder decides otherwise. The plan needs the builder's review.
+Drafted for [#8](https://github.com/Braden2n/JoyRide/issues/8). It governs solo battery work until the builder decides otherwise. The plan needs the builder's review.
 
 ## Principles
 
@@ -34,7 +34,7 @@ Drafted for [#8](https://github.com/Braden2n/JoyRide/issues/8). The builder alwa
 ### Before a session
 
 1. Confirm you are rested and focused. If not, do not work on the battery.
-2. Tell the check-in contact the start time, the task, and the expected end time. Contact TBD.
+2. Check in with a contact person before starting. Give them the start time, the task, and the expected end time. The contact is TBD.
 3. Clear the bench. Remove metal jewelry. Keep a fire-safe surface under the pack.
 4. Put the phone within reach, with signal.
 5. Set the bench supply current limit before connecting anything.
@@ -71,6 +71,4 @@ Drafted for [#8](https://github.com/Braden2n/JoyRide/issues/8). The builder alwa
 
 | # | Open item | Owner |
 | --- | --- | --- |
-| 1 | Name the check-in contact and the check-in method | Builder decision |
-| 2 | Decide whether this plan resolves STG-2-PACK open item 1 | Builder decision |
-| 3 | Decide how PROJECT.md Safety should reference this plan | Builder decision |
+| 1 | Decide whether this plan resolves STG-2-PACK open item 1 | Builder decision |

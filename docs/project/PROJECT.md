@@ -117,7 +117,7 @@ The project stays survivable by keeping voltage low, putting protection in hardw
 - The safe state is traction power off, reached by a hardware path without software (REQ-SAF-001).
 - Fail toward de-energized: a lost signal, lost heartbeat, or watchdog trip removes torque.
 - Energize in stages: a current-limited bench, then a rig with wheels off the ground, then a low-speed field test.
-- Review every wiring change a second time before applying power. Never work on live circuits, and never work alone on the battery.
+- Review every wiring change a second time before applying power. Never work on live circuits, and never work alone on the battery unless the [solo work safety plan](../procedures/SOLO-SAFETY.md) applies.
 - Test the E-stop and the BMS cutoffs at every checkpoint.
 - Never charge or store lithium cells unattended outside the designated container and area.
 - A subsystem with unmet safety basics does not go on the kart.
