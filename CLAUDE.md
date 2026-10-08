@@ -100,6 +100,7 @@ docs/
   architecture/SUBSYSTEMS.md       SUB blocks, architecture, ICD list
   architecture/interfaces/         ICD files (created with the first ICD)
   decisions/                       DEC files and the decision log
+  procedures/                      safety and working procedures
   journal/                         dated entries and checkpoints (created with the first entry)
   stages/                          STG documents
   templates/                       all templates and record schemas
