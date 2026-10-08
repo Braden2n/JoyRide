@@ -30,7 +30,7 @@ System requirements use only the SYS, SAF, and COST codes. Subsystem requirement
 | REQ-SAF-002 | The battery stays below the shock-hazard voltage ceiling at full charge. | Below 60 V DC (fixed) | Below 60 V DC | Measurement | PACK | Agreed |
 | REQ-SAF-003 | The battery system protects its cells and disconnects safely on faults. | TBD (fault list from STG-2-PACK) | TBD | Fault-injection test | PACK | Draft |
 | REQ-SAF-004 | A single sensor or software fault cannot command unintended acceleration. | TBD (fault behavior from STG-2-VCU) | TBD | Fault-injection test | VCU | Draft |
-| REQ-COST-001 | Spend stays within the budget plan. | $150 per month, rollover allowed (fixed)  | Same | Budget tracker | Project | Agreed |
+| REQ-COST-001 | Spend stays within the budget plan. | $150 per month, rollover allowed (fixed) | Same | Budget tracker | Project | Agreed |
 
 Owners are proposed. Stage 1 confirms them.
 
