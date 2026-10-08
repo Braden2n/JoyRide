@@ -48,6 +48,43 @@ Every issue carries this metadata:
 
 The forms set the type label and add the issue to the project. Set the milestone, subsystem label, and project fields when filing.
 
+## Agent work from issues
+
+Agents run from `@claude` mentions in issues and PRs. The builder's latest comment overrides this section.
+
+### Rules for every run
+
+1. Read this file, the linked stage document, and the full issue thread before changing anything.
+2. Work on a new branch from `main`, named `issue-N-short-slug`. Never commit to `main`, force-push, or delete files.
+3. Open one PR per issue. The PR body cites the issue, for example "Refs #12".
+4. Do not merge, close issues, or resolve decisions. The builder does those.
+5. If the request is unclear, or a choice belongs to the builder, ask in a comment and stop.
+6. Never invent a value. Write TBD, and add an open item to the owning document.
+7. Record new ideas as a `parking lot` issue. Do not act on them.
+8. Add any new directory to the Layout section in the same PR.
+
+### Rules by issue type
+
+| Issue | Agent action |
+| --- | --- |
+| `type: task` | Do the work in a branch and open a PR. Tick a stage task only when the builder asks. |
+| `type: decision` | Draft the DEC, its decision log row, and the stage Decisions table link in one PR. Do not mark it accepted. |
+| `type: purchase` | Do not order anything. Draft a budget row in PROJECT.md, with unknown costs marked TBD, and flag it for the builder. |
+| `type: test` | Draft a TST report from [docs/templates/](docs/templates/README.md) in the subsystem's `docs/tests/`. Record only results the builder supplies. |
+| `type: docs` | Edit only the documents the issue names, in a PR. |
+| No type, or a question | Answer in a comment. Make no file changes. |
+| `parking lot` | Take no action. |
+
+### Dividing work
+
+| Work | Agent | Builder |
+| --- | --- | --- |
+| Drafting documents, DEC drafts, journal entries, test report drafts | Drafts in a PR | Reviews, decides, and merges |
+| Triage, summaries, finding related IDs | Comments | Confirms |
+| Test results, measurements, costs | Records only what the builder supplies | Supplies the data |
+| Decisions, goal and risk changes, requirement levels | Drafts only | Decides and approves |
+| Safety judgments, sign-off, hardware, purchases | Drafts only, never final | Decides and does |
+
 ## Layout
 
 The ID prefix decides where a record lives. Global IDs live in the root. IDs that carry a subsystem code live in that subsystem's home. Schemas for every ID type are in [docs/templates/README.md](docs/templates/README.md).
