@@ -26,6 +26,7 @@ Core-document rules:
 - Ask before resolving anything marked "builder decision".
 - Do not add scope. New ideas go to the backlog as an issue labeled `parking lot`.
 - Named parts, tools, and protocols are examples, not decisions, until a DEC accepts them.
+- When a local agent creates or switches a branch, tell the builder which branch and why, or bring the changes back through a PR. Do not leave work on an unannounced branch.
 
 ## Action items
 
@@ -56,8 +57,8 @@ Agents run from `@claude` mentions in issues and PRs. The builder's latest comme
 
 1. Read this file, the linked stage document, and the full issue thread before changing anything.
 2. Work on a new branch from `main`, named `issue-N-short-slug`. Never commit to `main`, force-push, or delete files.
-3. Open one PR per issue. The PR body cites the issue, for example "Refs #12".
-4. Do not merge, close issues, or resolve decisions. The builder does those.
+3. Open one PR per issue. The PR body cites the issue as `Closes #N` if the PR completes the issue's request, otherwise `Refs #N`.
+4. Do not merge or close issues. Merging is the builder's approval, and it closes any issue the PR closes.
 5. If the request is unclear, or a choice belongs to the builder, ask in a comment and stop.
 6. Never invent a value. Write TBD, and add an open item to the owning document.
 7. Record new ideas as a `parking lot` issue. Do not act on them.
@@ -68,7 +69,7 @@ Agents run from `@claude` mentions in issues and PRs. The builder's latest comme
 | Issue | Agent action |
 | --- | --- |
 | `type: task` | Do the work in a branch and open a PR. Tick a stage task only when the builder asks. |
-| `type: decision` | Draft the DEC, its decision log row, and the stage Decisions table link in one PR. Do not mark it accepted. |
+| `type: decision` | In one PR, draft the DEC, its decision log row, the stage Decisions row, and close the open items it resolves, citing the issue. Mark the DEC Accepted only when the issue thread states the builder's decision. Otherwise mark it Proposed. |
 | `type: purchase` | Do not order anything. Draft a budget row in PROJECT.md, with unknown costs marked TBD, and flag it for the builder. |
 | `type: test` | Draft a TST report from [docs/templates/](docs/templates/README.md) in the subsystem's `docs/tests/`. Record only results the builder supplies. |
 | `type: docs` | Edit only the documents the issue names, in a PR. |
