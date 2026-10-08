@@ -6,7 +6,7 @@ updated: 2026-10-08
 
 # Solo work safety plan
 
-Drafted for [#8](https://github.com/Braden2n/JoyRide/issues/8). It governs solo battery work until the builder decides otherwise. The plan needs the builder's review.
+Drafted for [#8](https://github.com/Braden2n/JoyRide/issues/8). It governs solo battery work until the builder decides otherwise.
 
 ## Principles
 
@@ -71,4 +71,4 @@ Drafted for [#8](https://github.com/Braden2n/JoyRide/issues/8). It governs solo 
 
 | # | Open item | Owner |
 | --- | --- | --- |
-| 1 | Decide whether this plan resolves STG-2-PACK open item 1 | Builder decision |
+| 1 | Set the monthly check interval | Builder decision |
