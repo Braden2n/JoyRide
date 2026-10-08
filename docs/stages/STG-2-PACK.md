@@ -1,7 +1,7 @@
 ---
 id: STG-2-PACK
 status: Not started
-updated: 2026-10-06
+updated: 2026-10-08
 stage_type: cycle
 subsystem: PACK
 spark: yes
@@ -104,6 +104,7 @@ RSK-001, RSK-003, RSK-004.
 | Cell chemistry and pack source | none | DEC-004 (proposed) |
 | Charging approach: commercial or builder-designed charger | none | |
 | Whether HVIL or IMD is needed | none | |
+| Solo battery work under a safety plan | none | DEC-008 (resolved in #8) |
 
 ## Checkpoint additions
 
@@ -120,6 +121,5 @@ RSK-001, RSK-003, RSK-004.
 
 | # | Open item | Owner |
 | --- | --- | --- |
-| 1 | How to meet "never work alone on the battery" as a solo builder | Builder decision |
-| 2 | Number of series cells for the bench pack | Builder decision |
-| 3 | Fault list for REQ-SAF-003 | This cycle, step 2 |
+| 1 | Number of series cells for the bench pack | Builder decision |
+| 2 | Fault list for REQ-SAF-003 | This cycle, step 2 |

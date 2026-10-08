@@ -36,4 +36,5 @@ Read in this order:
 ## Other folders
 
 - [decisions/](decisions/README.md): the decision log.
+- [procedures/](procedures/SOLO-SAFETY.md): safety and working procedures.
 - [templates/](templates/README.md): templates and record schemas.
