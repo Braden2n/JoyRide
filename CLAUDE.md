@@ -26,6 +26,7 @@ Core-document rules:
 - Ask before resolving anything marked "builder decision".
 - Do not add scope. New ideas go to the backlog as an issue labeled `parking lot`.
 - Named parts, tools, and protocols are examples, not decisions, until a DEC accepts them.
+- When a local agent creates or switches a branch, tell the builder which branch and why, or bring the changes back through a PR. Do not leave work on an unannounced branch.
 
 ## Action items
 
