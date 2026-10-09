@@ -18,3 +18,4 @@ One file per decision, from the [decision template](../templates/decision.md). S
 | [DEC-006](DEC-006-requirement-levels-by-code.md) | Requirement level is set by its code |
 | [DEC-007](DEC-007-dissolve-launch-document.md) | Dissolve the launch document |
 | [DEC-008](DEC-008-solo-battery-work-plan.md) | Solo battery work under a written safety plan |
+| [DEC-009](DEC-009-priority-order-with-blocker-fallback.md) | Work cycles in priority order, falling back when blocked |
