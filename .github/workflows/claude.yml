@@ -86,5 +86,5 @@ jobs:
           url=$(gh pr create --base main --head "$BRANCH" --fill-first $draft)
           echo "Opened $url"
           if [ -n "$ISSUE" ]; then
-            gh issue comment "$ISSUE" --body "Opened $url. Mention @claude on the PR for follow-up work on this branch."
+            gh issue comment "$ISSUE" --body "Opened $url. For follow-up work on this branch, mention Claude on the PR."
           fi

@@ -71,7 +71,7 @@ Start a mention with a model and an effort level to set them for that run, for e
 
 ### Branch sync
 
-When `main` changes, [sync-prs](.github/workflows/sync-prs.yml) merges `main` into every open PR branch. For a conflicting branch, an agent merges `main`, renumbers colliding IDs, and comments on the PR.
+When `main` changes, [sync-prs](.github/workflows/sync-prs.yml) merges `main` into every open PR branch. For a conflicting branch, it dispatches [resolve-pr](.github/workflows/resolve-pr.yml): an agent merges `main`, renumbers colliding IDs, and comments on the PR. Run resolve-pr by hand from the Actions tab for any PR.
 
 ### Rules by issue type
 
