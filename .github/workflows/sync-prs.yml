@@ -1,7 +1,7 @@
 name: Sync PR branches
 
 # Keeps open PR branches current with main. Clean branches get GitHub's update-branch
-# merge; conflicting branches get a Claude run that merges main and resolves them.
+# merge; each conflicting branch gets a Resolve PR conflicts run.
 
 on:
   push:
@@ -14,74 +14,22 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    outputs:
-      conflicts: ${{ steps.update.outputs.conflicts }}
+      actions: write
     steps:
       - name: Merge main into open PR branches
-        id: update
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
         run: |
-          conflicts="[]"
           prs=$(gh pr list --repo "$REPO" --base main --state open --json number,isCrossRepository \
             --jq '.[] | select(.isCrossRepository | not) | .number')
           for n in $prs; do
             if out=$(gh api -X PUT "repos/$REPO/pulls/$n/update-branch" 2>&1); then
               echo "#$n updated"
             elif echo "$out" | grep -qi conflict; then
-              echo "#$n has conflicts"
-              conflicts=$(echo "$conflicts" | jq -c ". + [$n]")
+              echo "#$n has conflicts; dispatching Resolve PR conflicts"
+              gh workflow run resolve-pr.yml --repo "$REPO" --ref main -f pr="$n"
             else
               echo "#$n skipped: $out"
             fi
           done
-          echo "conflicts=$conflicts" >> "$GITHUB_OUTPUT"
-
-  resolve:
-    needs: update
-    if: needs.update.outputs.conflicts != '[]'
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        pr: ${{ fromJSON(needs.update.outputs.conflicts) }}
-    concurrency:
-      group: sync-pr-${{ matrix.pr }}
-    permissions:
-      contents: write
-      pull-requests: write
-      issues: write
-      id-token: write
-    steps:
-      - name: Find the PR branch
-        id: head
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-          PR: ${{ matrix.pr }}
-        run: echo "ref=$(gh api "repos/$REPO/pulls/$PR" --jq .head.ref)" >> "$GITHUB_OUTPUT"
-
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ steps.head.outputs.ref }}
-          fetch-depth: 0
-
-      - uses: anthropics/claude-code-action@v1
-        with:
-          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          prompt: |
-            Branch `${{ steps.head.outputs.ref }}` (PR #${{ matrix.pr }}) conflicts with main. Bring it up to date.
-
-            1. Read CLAUDE.md.
-            2. Run `git fetch origin main` and `git merge origin/main`.
-            3. Resolve each conflict by keeping main's content and re-applying only this branch's intended change.
-            4. If this branch adds an ID (DEC, ICD, or any other) whose number main already uses, renumber it to the next free number. Rename the file and update every reference: its front matter, H1, the decision log, stage tables, and links.
-            5. Renumber open-item tables so they have no gaps.
-            6. Check that no conflict markers remain and that `git diff origin/main` shows only this branch's change.
-            7. Commit the merge with a message that lists any renumbering, then run `git push origin HEAD:${{ steps.head.outputs.ref }}`. Never force-push or rebase.
-            8. Comment on PR #${{ matrix.pr }} with what you resolved and renumbered. Link files with absolute URLs that start with https://github.com/Braden2n/JoyRide/blob/main/.
-
-            If a conflict needs a builder decision, push nothing. Comment on the PR with the question and stop.
-          claude_args: |
-            --allowedTools "Read,Edit,Write,Glob,Grep,Bash(git fetch:*),Bash(git merge:*),Bash(git add:*),Bash(git mv:*),Bash(git commit:*),Bash(git push origin HEAD:*),Bash(git status:*),Bash(git diff:*),Bash(git log:*),Bash(git show:*),Bash(git checkout --ours:*),Bash(git checkout --theirs:*),Bash(gh pr comment:*),Bash(gh pr view:*),Bash(gh api:*)"
