@@ -6,7 +6,7 @@ updated: 2026-10-06
 
 # JoyRide documentation
 
-JoyRide is an open-source, hobby electric go-kart project. The journey is the goal. Documentation rules are in [CLAUDE.md](../CLAUDE.md).
+JoyRide is an open-source, hobby electric go-kart project. The journey is the goal. Documentation rules are in [CLAUDE.md](../CLAUDE.md). Workflow test 1.
 
 ## Core documents
 
