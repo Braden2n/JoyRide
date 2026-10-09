@@ -1,7 +1,7 @@
 ---
 id: TEMPLATES
 status: active
-updated: 2026-10-06
+updated: 2026-10-09
 ---
 
 # Templates and record schemas
@@ -44,6 +44,8 @@ Codes: subsystem codes are DRV, PACK, CHS, VCU, TEL, NET, TMS, and RMT. System c
 | Issue | `#N`, GitHub's issue number (no project prefix) | Issue | GitHub issues |
 
 ## Status values
+
+The builder confirmed these vocabularies in #13.
 
 | Records | Values |
 | --- | --- |

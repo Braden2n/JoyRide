@@ -1,7 +1,7 @@
 ---
 id: STG-1
 status: In progress
-updated: 2026-10-06
+updated: 2026-10-09
 stage_type: system
 subsystem: none
 spark: yes
@@ -127,4 +127,4 @@ RSK-004, RSK-008, RSK-009.
 | 2 | "One cycle at a time" versus starting the DRV and PACK paper proofs in the first weeks | Builder decision |
 | 3 | What a "useful session" means for REQ-SYS-002 | Builder decision |
 | 4 | Whether a subsystem home is a folder of submodules or a submodule of submodules | Builder decision |
-| 5 | Confirm the status vocabularies and the TST-SYS code in the [templates](../templates/README.md) | Builder decision |
+| 5 | Confirm the TST-SYS code in the [templates](../templates/README.md). Status vocabularies confirmed in #13. | Builder decision |
