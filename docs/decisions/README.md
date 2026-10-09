@@ -20,3 +20,4 @@ One file per decision, from the [decision template](../templates/decision.md). S
 | [DEC-008](DEC-008-solo-battery-work-plan.md) | Solo battery work under a written safety plan |
 | [DEC-009](DEC-009-subsystem-home-is-a-folder.md) | A subsystem home is a folder of submodules |
 | [DEC-010](DEC-010-non-subsystem-work-structure.md) | Folder structure for non-subsystem work |
+| [DEC-011](DEC-011-useful-session-definition.md) | A useful session is a multi-scenario drive cycle |
