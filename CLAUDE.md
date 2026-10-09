@@ -69,10 +69,6 @@ Agents run from `@claude` mentions in issues and PRs. The builder's latest comme
 
 Start a mention with a model and an effort level to set them for that run, for example `@claude opus extra high` or `@claude sonnet low`. Both words are optional. Models are opus, sonnet, haiku, and fable. Efforts are low, medium, high, xhigh (or "extra high"), and max. Without them, the run uses the action's defaults. Any of these words right after `@claude` counts as a setting.
 
-### Branch sync
-
-When `main` changes, [sync-prs](.github/workflows/sync-prs.yml) merges `main` into every open PR branch. For a conflicting branch, it dispatches [resolve-pr](.github/workflows/resolve-pr.yml): an agent merges `main`, renumbers colliding IDs, and comments on the PR. Run resolve-pr by hand from the Actions tab for any PR.
-
 ### Rules by issue type
 
 | Issue | Agent action |
