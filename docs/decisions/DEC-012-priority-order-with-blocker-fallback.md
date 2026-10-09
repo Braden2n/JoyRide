@@ -1,11 +1,11 @@
 ---
-id: DEC-009
+id: DEC-012
 status: Accepted
 decided: 2026-10-09
 updated: 2026-10-09
 ---
 
-# DEC-009: Work cycles in priority order, falling back when blocked
+# DEC-012: Work cycles in priority order, falling back when blocked
 
 ## Context
 

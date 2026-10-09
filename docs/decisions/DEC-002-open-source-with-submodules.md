@@ -25,4 +25,4 @@ Public GitHub. A root repository holds documentation and planning. Each atomic p
 
 ## Consequences
 
-Subsystem documentation lives in each subsystem's home. See the layout in [CLAUDE.md](../../CLAUDE.md#layout). Whether a home is a folder of submodules or a submodule of submodules is still TBD.
+Subsystem documentation lives in each subsystem's home. See the layout in [CLAUDE.md](../../CLAUDE.md#layout). A home is a folder of submodules ([DEC-009](DEC-009-subsystem-home-is-a-folder.md)).

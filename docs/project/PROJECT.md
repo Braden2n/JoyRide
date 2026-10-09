@@ -168,7 +168,7 @@ Checkpoints are decisions for the builder, not approvals. Their questions are in
 
 Rules of thumb:
 
-- Work cycles in priority order until blocked, then run the cycle that clears the blocker ([DEC-009](../decisions/DEC-009-priority-order-with-blocker-fallback.md)).
+- Work cycles in priority order until blocked, then run the cycle that clears the blocker ([DEC-012](../decisions/DEC-012-priority-order-with-blocker-fallback.md)).
 - Time-box, then decide. If a step runs well past its estimate, shorten it or park it.
 - If a step stops being fun or useful, skip it and note why.
 - Do not remove a working part until its replacement works.
