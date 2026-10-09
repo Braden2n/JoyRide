@@ -7,7 +7,7 @@ body:
     id: question
     attributes:
       label: Question
-      description: The decision to make. Cite related IDs (REQ, DEC, RSK, ICD).
+      description: The decision to make. Cite related IDs (REQ, DEC, RSK, ICD). Link files with full URLs (https://github.com/Braden2n/JoyRide/blob/main/...).
     validations:
       required: true
   - type: textarea
