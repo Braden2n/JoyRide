@@ -27,11 +27,64 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
+
+      # Run settings: "@claude [model] [effort] ...", for example "@claude opus extra high".
+      - name: Parse model and effort
+        id: parse
+        env:
+          BODY: ${{ github.event.comment.body || github.event.review.body || github.event.issue.body }}
+          TITLE: ${{ github.event.issue.title }}
+        run: |
+          python3 - <<'PY'
+          import os, re
+          text = os.environ.get("BODY") or ""
+          if "@claude" not in text.lower():
+              text = os.environ.get("TITLE") or ""
+          word = r"(?:opus|sonnet|haiku|fable|extra[\s-]+high|x-?high|max|high|medium|med|low)\b"
+          m = re.search(r"@claude\b((?:[ \t]+" + word + r"){1,2})", text, re.I)
+          words = re.sub(r"extra[\s-]+high|x-high", "xhigh", m.group(1), flags=re.I).lower().split() if m else []
+          model = effort = ""
+          for w in words:
+              if w in ("opus", "sonnet", "haiku", "fable"):
+                  model = model or w
+              else:
+                  effort = effort or ("medium" if w == "med" else w)
+          args = (f"--model {model} " if model else "") + (f"--effort {effort}" if effort else "")
+          print(f"Run settings: {args or 'defaults'}")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"args={args.strip()}\n")
+          PY
 
       - uses: anthropics/claude-code-action@v1
+        id: claude
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           track_progress: true
           claude_args: |
-            --allowedTools "Bash(gh pr:*),Bash(gh issue:*),Bash(gh run view:*)"
+            ${{ steps.parse.outputs.args }}
+            --allowedTools "Bash(gh pr:*),Bash(gh issue:*),Bash(gh run view:*),Bash(gh api:*)"
+            --append-system-prompt "JoyRide run rules: (1) In issue bodies, PR bodies, and comments, link repository files with absolute URLs that start with https://github.com/Braden2n/JoyRide/blob/main/ and never with relative paths. (2) Read issue threads with gh api repos/Braden2n/JoyRide/issues/N/comments, because gh issue view fails on a Projects classic error. (3) Model and effort words right after @claude are run settings, not part of the request. (4) The workflow opens the PR after this run, so do not post a Create PR link. Write the first commit subject as the PR title and put Closes #N or Refs #N in its body."
+
+      # Tag mode cannot open PRs, so open one for any new branch this run pushed.
+      - name: Open PR for the run's branch
+        if: always() && steps.claude.outputs.branch_name != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.claude.outputs.branch_name }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          git fetch -q origin main "$BRANCH" 2>/dev/null || { echo "Branch $BRANCH was not pushed."; exit 0; }
+          if [ "$(git rev-list --count "origin/main..origin/$BRANCH")" = "0" ]; then
+            echo "No commits ahead of main."; exit 0
+          fi
+          if [ -n "$(gh pr list --head "$BRANCH" --state open --json number --jq '.[].number')" ]; then
+            echo "A PR already exists for $BRANCH."; exit 0
+          fi
+          draft="--draft"
+          git log --format=%B "origin/main..origin/$BRANCH" | grep -qiE '^closes #[0-9]+' && draft=""
+          url=$(gh pr create --base main --head "$BRANCH" --fill-first $draft)
+          echo "Opened $url"
+          if [ -n "$ISSUE" ]; then
+            gh issue comment "$ISSUE" --body "Opened $url. Mention @claude on the PR for follow-up work on this branch."
+          fi
