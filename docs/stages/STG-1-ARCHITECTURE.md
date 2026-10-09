@@ -107,6 +107,8 @@ RSK-004, RSK-008, RSK-009.
 | Kart MVP definition and placeholders | All | |
 | Starting subsystem | All | DEC-005 |
 | Workspace safety plan | PACK | |
+| Subsystem home structure | All | DEC-009 |
+| Folder structure for non-subsystem work | All | DEC-010 |
 
 ## Checkpoint additions
 
@@ -126,5 +128,5 @@ RSK-004, RSK-008, RSK-009.
 | 1 | Workspace ventilation and charging area. An earlier assumption said a safe lithium workspace exists; the builder says ventilation is poor. | Builder decision |
 | 2 | "One cycle at a time" versus starting the DRV and PACK paper proofs in the first weeks | Builder decision |
 | 3 | What a "useful session" means for REQ-SYS-002 | Builder decision |
-| 4 | Whether a subsystem home is a folder of submodules or a submodule of submodules | Builder decision |
-| 5 | Confirm the TST-SYS code in the [templates](../templates/README.md). Status vocabularies confirmed in #13. | Builder decision |
+| 4 | Confirm the TST-SYS code in the [templates](../templates/README.md). Status vocabularies confirmed in #13. | Builder decision |
+| 5 | Folder structure for non-subsystem work ([DEC-010](../decisions/DEC-010-non-subsystem-work-structure.md), raised in #12) | Builder decision |
