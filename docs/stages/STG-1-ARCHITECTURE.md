@@ -106,7 +106,7 @@ RSK-004, RSK-008, RSK-009.
 | System goal values | All | |
 | Kart MVP definition and placeholders | All | |
 | Starting subsystem | All | DEC-005 |
-| Workspace safety plan | PACK | |
+| Workspace safety plan | PACK | DEC-013 (Proposed, #9) |
 | Subsystem home structure | All | DEC-009 |
 | Folder structure for non-subsystem work | All | DEC-010 |
 | Definition of a useful session | PACK | DEC-011 (resolved in #11) |

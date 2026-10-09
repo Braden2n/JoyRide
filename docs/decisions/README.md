@@ -22,3 +22,4 @@ One file per decision, from the [decision template](../templates/decision.md). S
 | [DEC-010](DEC-010-non-subsystem-work-structure.md) | Folder structure for non-subsystem work |
 | [DEC-011](DEC-011-useful-session-definition.md) | A useful session is a multi-scenario drive cycle |
 | [DEC-012](DEC-012-priority-order-with-blocker-fallback.md) | Work cycles in priority order, falling back when blocked |
+| [DEC-013](DEC-013-lithium-work-at-makerspace.md) | Do lithium work at a local makerspace |
