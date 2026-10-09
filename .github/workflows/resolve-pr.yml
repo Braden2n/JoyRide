@@ -37,6 +37,7 @@ jobs:
           fetch-depth: 0
 
       - uses: anthropics/claude-code-action@v1
+        id: claude
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           # Sync PR branches dispatches this workflow as github-actions.
@@ -51,8 +52,28 @@ jobs:
             5. Renumber open-item tables so they have no gaps.
             6. Check that no conflict markers remain and that `git diff origin/main` shows only this branch's change.
             7. Commit the merge with a message that lists any renumbering, then run `git push origin HEAD:${{ steps.head.outputs.ref }}`. Never force-push or rebase.
-            8. Comment on PR #${{ inputs.pr }} with what you resolved and renumbered. Link files with absolute URLs that start with https://github.com/Braden2n/JoyRide/blob/main/.
+            8. Only after the push succeeds, comment on PR #${{ inputs.pr }} with the pushed commit SHA and what you resolved and renumbered. Link files with absolute URLs that start with https://github.com/Braden2n/JoyRide/blob/main/.
 
+            Run one command per Bash call, without `&&` or pipes. If a command is denied or the push fails, comment on the PR with the exact error instead of claiming success, and stop.
             If a conflict needs a builder decision, push nothing. Comment on the PR with the question and stop.
           claude_args: |
-            --allowedTools "Read,Edit,Write,Glob,Grep,Bash(git fetch:*),Bash(git merge:*),Bash(git add:*),Bash(git mv:*),Bash(git commit:*),Bash(git push origin HEAD:*),Bash(git status:*),Bash(git diff:*),Bash(git log:*),Bash(git show:*),Bash(git checkout --ours:*),Bash(git checkout --theirs:*),Bash(gh pr comment:*),Bash(gh pr view:*),Bash(gh api:*)"
+            --allowedTools "Read,Edit,Write,Glob,Grep,Bash(git:*),Bash(gh pr comment:*),Bash(gh pr view:*),Bash(gh api:*)"
+            --disallowedTools "Bash(git push --force:*),Bash(git push -f:*),Bash(git push --force-with-lease:*),Bash(git rebase:*),Bash(git reset:*),Bash(git rm:*),Bash(git clean:*),Bash(git branch -D:*),Bash(git branch -d:*)"
+
+      - name: Show permission denials
+        if: always() && steps.claude.outputs.execution_file != ''
+        env:
+          LOG: ${{ steps.claude.outputs.execution_file }}
+        run: jq -c '.[] | select(.type == "result") | .permission_denials[]? | {tool_name, tool_input}' "$LOG" || true
+
+      - name: Check that the branch now contains main
+        env:
+          REF: ${{ steps.head.outputs.ref }}
+        run: |
+          git fetch -q origin main "$REF"
+          if git merge-base --is-ancestor origin/main "origin/$REF"; then
+            echo "origin/$REF contains main."
+          else
+            echo "::error::origin/$REF still does not contain main. Nothing was pushed."
+            exit 1
+          fi
