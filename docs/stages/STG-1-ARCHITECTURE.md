@@ -1,7 +1,7 @@
 ---
 id: STG-1
 status: In progress
-updated: 2026-10-06
+updated: 2026-10-09
 stage_type: system
 subsystem: none
 spark: yes
@@ -107,7 +107,9 @@ RSK-004, RSK-008, RSK-009.
 | Kart MVP definition and placeholders | All | |
 | Starting subsystem | All | DEC-005 |
 | Workspace safety plan | PACK | |
-| Definition of a useful session | PACK | DEC-009 (resolved in #11) |
+| Subsystem home structure | All | DEC-009 |
+| Folder structure for non-subsystem work | All | DEC-010 |
+| Definition of a useful session | PACK | DEC-011 (resolved in #11) |
 
 ## Checkpoint additions
 
@@ -126,5 +128,5 @@ RSK-004, RSK-008, RSK-009.
 | --- | --- | --- |
 | 1 | Workspace ventilation and charging area. An earlier assumption said a safe lithium workspace exists; the builder says ventilation is poor. | Builder decision |
 | 2 | "One cycle at a time" versus starting the DRV and PACK paper proofs in the first weeks | Builder decision |
-| 3 | Whether a subsystem home is a folder of submodules or a submodule of submodules | Builder decision |
-| 4 | Confirm the status vocabularies and the TST-SYS code in the [templates](../templates/README.md) | Builder decision |
+| 3 | Confirm the TST-SYS code in the [templates](../templates/README.md). Status vocabularies confirmed in #13. | Builder decision |
+| 4 | Folder structure for non-subsystem work ([DEC-010](../decisions/DEC-010-non-subsystem-work-structure.md), raised in #12) | Builder decision |

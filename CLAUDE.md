@@ -107,7 +107,7 @@ docs/
   templates/                       all templates and record schemas
 ```
 
-Each subsystem home has this layout, whether it ends up as a folder or a submodule:
+Each subsystem home is a folder with this layout ([DEC-009](docs/decisions/DEC-009-subsystem-home-is-a-folder.md)):
 
 ```
 subsystems/<CODE>/

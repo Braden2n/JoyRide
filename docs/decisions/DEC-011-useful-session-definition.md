@@ -1,11 +1,11 @@
 ---
-id: DEC-009
+id: DEC-011
 status: Accepted
 decided: 2026-10-09
 updated: 2026-10-09
 ---
 
-# DEC-009: A useful session is a multi-scenario drive cycle
+# DEC-011: A useful session is a multi-scenario drive cycle
 
 ## Context
 
