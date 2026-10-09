@@ -7,7 +7,7 @@ body:
     id: task
     attributes:
       label: Task
-      description: A short imperative. Cite related IDs (REQ, DEC, RSK, ICD).
+      description: A short imperative. Cite related IDs (REQ, DEC, RSK, ICD). Link files with full URLs (https://github.com/Braden2n/JoyRide/blob/main/...).
     validations:
       required: true
   - type: textarea

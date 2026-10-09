@@ -56,13 +56,22 @@ Agents run from `@claude` mentions in issues and PRs. The builder's latest comme
 ### Rules for every run
 
 1. Read this file, the linked stage document, and the full issue thread before changing anything.
-2. Work on a new branch from `main`, named `issue-N-short-slug`. Never commit to `main`, force-push, or delete files.
-3. Open one PR per issue. The PR body cites the issue as `Closes #N` if the PR completes the issue's request, otherwise `Refs #N`.
+2. Work on the branch the workflow gives the run. Never commit to `main`, force-push, or delete files.
+3. Make one PR per issue. The workflow opens it from the first commit: the subject is the title, and the body cites the issue as `Closes #N` if the PR completes the request, otherwise `Refs #N`. Further work on the issue happens by mentioning `@claude` on the PR.
 4. Do not merge or close issues. Merging is the builder's approval, and it closes any issue the PR closes.
 5. If the request is unclear, or a choice belongs to the builder, ask in a comment and stop.
 6. Never invent a value. Write TBD, and add an open item to the owning document.
 7. Record new ideas as a `parking lot` issue. Do not act on them.
 8. Add any new directory to the Layout section in the same PR.
+9. Before numbering a new global ID, check the numbers that open PRs claim, and take the next free one.
+
+### Run settings
+
+Start a mention with a model and an effort level to set them for that run, for example `@claude opus extra high` or `@claude sonnet low`. Both words are optional. Models are opus, sonnet, haiku, and fable. Efforts are low, medium, high, xhigh (or "extra high"), and max. Without them, the run uses the action's defaults. Any of these words right after `@claude` counts as a setting.
+
+### Branch sync
+
+When `main` changes, [sync-prs](.github/workflows/sync-prs.yml) merges `main` into every open PR branch. For a conflicting branch, it dispatches [resolve-pr](.github/workflows/resolve-pr.yml): an agent merges `main`, renumbers colliding IDs, and comments on the PR. Run resolve-pr by hand from the Actions tab for any PR.
 
 ### Rules by issue type
 
@@ -153,6 +162,7 @@ Unnecessary, so leave it out:
 - Use tables for items with attributes, numbered lists for ordered steps, and bullets for parallel items.
 - Keep sentences under 25 words. Do not use emoji.
 - Use relative links. Link to headings by their GitHub anchors.
+- In issues, PRs, and comments, link files with absolute URLs from `https://github.com/Braden2n/JoyRide/blob/main/`. Relative links break there.
 - Citing an ID is fine. Restating its content is not.
 - Write tasks as short imperatives.
 
