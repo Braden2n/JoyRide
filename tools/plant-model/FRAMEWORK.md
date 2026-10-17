@@ -4,9 +4,9 @@ status: draft
 updated: 2026-10-16
 ---
 
-# Plant model framework
+# Plant model reference framework
 
-The plant is a chain of blocks that share one contract. It is built in Scilab Xcos ([DEC-014](../../docs/decisions/DEC-014-plant-model-in-xcos.md), proposed). The same diagrams run alone for sizing and, exported as FMI co-simulation units, behind a boundary for embedded code. This is a reference, not an implementation. Every parameter value is TBD.
+The plant is a chain of blocks that share one contract. This file is tool-neutral. Scilab Xcos and OpenModelica both build the blocks, and FMI is the boundary between them and the embedded code ([DEC-014](../../docs/decisions/DEC-014-plant-model-in-xcos.md), proposed). The same blocks run alone for sizing and behind a co-simulation boundary for embedded code. This is a reference, not an implementation. Every parameter value is TBD.
 
 ## Architecture
 
@@ -56,16 +56,21 @@ Core equations:
 
 Sizing outputs: peak and continuous power, peak torque, gear ratio range, energy per cycle, pack voltage and current, and run time. Each output checks against a REQ in [GOALS.md](../../docs/project/GOALS.md#system-requirements). Full-charge pack voltage checks against REQ-SAF-002.
 
-## Block contract in Xcos
+## Block contract
 
-Each block is an Xcos superblock. Its parameters come from a parameter script in `params/`.
+Every block follows one contract, whichever tool builds it. The contract mirrors an FMI component, so any block can later be exported as an FMU or wrapped as C code.
 
-| Contract element | Xcos realization |
-| --- | --- |
-| params | Superblock context and parameter values from `params/` |
-| state | Continuous states of the blocks inside it |
-| inputs and outputs | Superblock input and output ports, in SI units |
-| events | Event and zero-crossing blocks, such as contactor open or fuse trip |
+```text
+block <Name>
+  params                                   fixed values from params/
+  state                                    integrated quantities, such as v, SOC, i_d, T
+  inputs                                   signals from neighbors or actuators
+  outputs                                  signals to neighbors or sensors
+  init(params)                -> state
+  derivatives(t, state, in)   -> d(state)/dt
+  outputs(t, state, in)       -> out
+  events(t, state, in)        -> discrete changes, such as contactor open or fuse trip
+```
 
 Signals between blocks, in SI units:
 
@@ -84,6 +89,21 @@ Signals between blocks, in SI units:
 | Every block | Thermal | Power loss |
 | Thermal | Every block | Temperature |
 
+## Tool mapping
+
+Each tool realizes the contract in its own terms. The mapping is the same for every block.
+
+| Contract element | Scilab Xcos | OpenModelica |
+| --- | --- | --- |
+| params | Block parameters and diagram context, values from `params/` | Model parameters, values from `params/` |
+| state | Continuous states of the blocks inside a superblock | Continuous states of the model's equations |
+| inputs and outputs | Superblock ports | Connectors and input or output declarations |
+| events | Event and zero-crossing blocks | `when` equations and events |
+| Physics | Block equations per block | Equations, often acausal, with the Modelica Standard Library |
+| Co-simulation export | FMI export of the top-level diagram | FMI export of the model |
+
+Source files live in `xcos/` or `modelica/`. Which tool builds which block is open item 2 in [README.md](README.md).
+
 ## Co-simulation boundary
 
 The plant exposes only what real hardware exposes: sensor outputs and actuator inputs.
@@ -94,18 +114,18 @@ The plant exposes only what real hardware exposes: sensor outputs and actuator i
 | BMS | Cell voltages, pack current, temperatures, contactor feedback | Contactor, precharge, and balancing commands |
 | Motor control | Phase currents, DC bus voltage, rotor angle or Hall states | Phase voltage or duty commands |
 
-Messages between nodes follow the DBC once it exists (REQ-SYS-005). The embedded code is compiled as a shared library with a hardware abstraction stub replacing drivers. It exposes a small C interface: `init`, `step(t, sensors) -> actuators`, `terminate`. How Xcos loads that library, either by linking it directly or by wrapping it as an FMU, is open item 3 in [README.md](README.md).
+Messages between nodes follow the DBC once it exists (REQ-SYS-005). Embedded code builds for the host as a shared library, with a hardware abstraction stub replacing drivers. The library exposes a small C interface: `init`, `step(t, sensors) -> actuators`, `terminate`. How the plant calls that library, by direct link or by a wrapper FMU, is open item 4 in [README.md](README.md).
 
-## Run loops
+Run loops, tool-neutral:
 
 ```text
 standalone(params, cycle):
-  load the plant diagram from models/ with params and cycle
-  simulate over the cycle time span with the Xcos solver
+  load the plant from xcos/ or modelica/ with params and cycle
+  simulate over the cycle time span with the tool's solver
   report sizing outputs against the REQs in GOALS.md
 
 cosim(params, cycle, controller_lib):
-  load the plant diagram with controller_lib wired to its boundary
+  load the plant with controller_lib wired to its boundary
   controller_lib.init()
   every controller tick (fixed step, the code's task rate):
     sensors   = plant outputs at the boundary
@@ -114,6 +134,6 @@ cosim(params, cycle, controller_lib):
   log signals; check faults and limits
 ```
 
-## Tool stack
+## Build tools
 
-Scilab Xcos builds and runs the plant ([DEC-014](../../docs/decisions/DEC-014-plant-model-in-xcos.md), proposed in #37). Its FMI export is the path for co-simulation. Scilab version, FMI export and import support on macOS, and FMU compatibility with the uv Python project are open item 2 in [README.md](README.md).
+Scilab Xcos and OpenModelica are the candidate tools ([DEC-014](../../docs/decisions/DEC-014-plant-model-in-xcos.md), proposed). Both must export FMI co-simulation units. Version, FMI export and import, and FMU loading on macOS are open item 3 in [README.md](README.md).
