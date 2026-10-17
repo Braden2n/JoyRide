@@ -12,6 +12,7 @@ Reference documents, sources, and learnings that inform decisions. A DEC cites a
 
 | File | Topic | Used by |
 | --- | --- | --- |
+| [adult-racing-leagues.md](Adult%20Racing%20Leagues/adult-racing-leagues.md) | Adult kart class mass, power, and energy as a sizing baseline | REQ-SYS-003, REQ-SYS-004, plant model |
 
 ## Conventions
 
