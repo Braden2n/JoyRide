@@ -110,6 +110,9 @@ docs/
   journal/                         dated entries and checkpoints (created with the first entry)
   stages/                          STG documents
   templates/                       all templates and record schemas
+tools/                             simulation and analysis tools outside any subsystem (DEC-010)
+  plant-model/                     powertrain sizing and co-simulation plant model
+research/                          reference documents and learnings, cited by DEC
 ```
 
 Each subsystem home is a folder with this layout ([DEC-009](docs/decisions/DEC-009-subsystem-home-is-a-folder.md)):

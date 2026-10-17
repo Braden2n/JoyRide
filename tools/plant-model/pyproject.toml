@@ -1,0 +1,19 @@
+[project]
+name = "plant-model"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "btoone", email = "braden@toonetown.com" }
+]
+requires-python = ">=3.15"
+dependencies = [
+    "fmpy[complete]>=0.3.32",
+]
+
+[project.scripts]
+plant-model = "plant_model:main"
+
+[build-system]
+requires = ["uv_build>=0.13.1,<0.14.0"]
+build-backend = "uv_build"
