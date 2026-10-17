@@ -4,15 +4,15 @@ status: draft
 updated: 2026-10-16
 ---
 
-# Plant model reference framework
+# Plant model framework
 
-The plant is a chain of blocks that share one contract. The same blocks run alone for sizing and behind a co-simulation boundary for embedded code. This is a reference, not an implementation. Every parameter value is TBD.
+The plant is a chain of blocks that share one contract. It is built in Scilab Xcos ([DEC-014](../../docs/decisions/DEC-014-plant-model-in-xcos.md), proposed). The same diagrams run alone for sizing and, exported as FMI co-simulation units, behind a boundary for embedded code. This is a reference, not an implementation. Every parameter value is TBD.
 
 ## Architecture
 
 Power flows left to right. Speed and voltage flow back.
 
-```
+```text
 Drive cycle -> Driver -> Controller -> Motor and inverter -> Driveline -> Vehicle
                             |               ^   |                             |
                             |          DC bus   DC current                    |
@@ -54,23 +54,18 @@ Core equations:
 | Power path | Precharge: `dV_link/dt = (V_pack - V_link) / (R_pre * C_link)`. Fuse trips on `I^2*t`. |
 | Thermal | `C_th * dT/dt = P_loss - (T - T_amb) / R_th` |
 
-Sizing outputs: peak and continuous power, peak torque, gear ratio range, energy per cycle, pack voltage and current, and run time. Each output checks against a REQ in [README.md](README.md). Full-charge pack voltage checks against REQ-SAF-002.
+Sizing outputs: peak and continuous power, peak torque, gear ratio range, energy per cycle, pack voltage and current, and run time. Each output checks against a REQ in [GOALS.md](../../docs/project/GOALS.md#system-requirements). Full-charge pack voltage checks against REQ-SAF-002.
 
-## Interfaces
+## Block contract in Xcos
 
-Every block follows one contract. It mirrors an FMI component, so any block can later become an FMU or C code.
+Each block is an Xcos superblock. Its parameters come from a parameter script in `params/`.
 
-```
-block <Name>
-  params                                   fixed values from params/
-  state                                    integrated quantities, such as v, SOC, i_d, T
-  inputs                                   signals from neighbors or actuators
-  outputs                                  signals to neighbors or sensors
-  init(params)                -> state
-  derivatives(t, state, in)   -> d(state)/dt
-  outputs(t, state, in)       -> out
-  events(t, state, in)        -> discrete changes, such as contactor open or fuse trip
-```
+| Contract element | Xcos realization |
+| --- | --- |
+| params | Superblock context and parameter values from `params/` |
+| state | Continuous states of the blocks inside it |
+| inputs and outputs | Superblock input and output ports, in SI units |
+| events | Event and zero-crossing blocks, such as contactor open or fuse trip |
 
 Signals between blocks, in SI units:
 
@@ -89,7 +84,9 @@ Signals between blocks, in SI units:
 | Every block | Thermal | Power loss |
 | Thermal | Every block | Temperature |
 
-Co-simulation boundary. The plant exposes only what real hardware exposes: sensor outputs and actuator inputs.
+## Co-simulation boundary
+
+The plant exposes only what real hardware exposes: sensor outputs and actuator inputs.
 
 | Embedded code | Plant gives it | Plant takes from it |
 | --- | --- | --- |
@@ -97,37 +94,26 @@ Co-simulation boundary. The plant exposes only what real hardware exposes: senso
 | BMS | Cell voltages, pack current, temperatures, contactor feedback | Contactor, precharge, and balancing commands |
 | Motor control | Phase currents, DC bus voltage, rotor angle or Hall states | Phase voltage or duty commands |
 
-Messages between nodes follow the DBC once it exists (REQ-SYS-005). Embedded code builds for the host as a shared library, with a hardware abstraction stub replacing drivers. The library exposes a small C interface: `init`, `step(t, sensors) -> actuators`, `terminate`.
+Messages between nodes follow the DBC once it exists (REQ-SYS-005). The embedded code is compiled as a shared library with a hardware abstraction stub replacing drivers. It exposes a small C interface: `init`, `step(t, sensors) -> actuators`, `terminate`. How Xcos loads that library, either by linking it directly or by wrapping it as an FMU, is open item 3 in [README.md](README.md).
 
-Run loops:
+## Run loops
 
-```
+```text
 standalone(params, cycle):
-  state = init all blocks
-  for t in time span (variable-step solver):
-    in   = route outputs between blocks
-    dxdt = derivatives of all blocks
-    handle events
-  report sizing outputs against REQs
+  load the plant diagram from models/ with params and cycle
+  simulate over the cycle time span with the Xcos solver
+  report sizing outputs against the REQs in GOALS.md
 
 cosim(params, cycle, controller_lib):
-  state = init all blocks; controller_lib.init()
+  load the plant diagram with controller_lib wired to its boundary
+  controller_lib.init()
   every controller tick (fixed step, the code's task rate):
     sensors   = plant outputs at the boundary
     actuators = controller_lib.step(t, sensors)
-    advance plant to next tick with fixed substeps, actuators held
+    advance plant to the next tick with fixed substeps, actuators held
   log signals; check faults and limits
 ```
 
-## Tool stack options
+## Tool stack
 
-Named tools are examples until a DEC accepts one (README open item 1).
-
-| Stack | Standalone | Co-simulation path | Pros | Cons |
-| --- | --- | --- | --- | --- |
-| Python: NumPy, SciPy, pandas, Jupyter | `solve_ivp` or a fixed-step loop | Load the library with `ctypes` or `cffi`; run FMUs with FMPy | Free, matches task 1b, fast to iterate | Slow at fine motor time steps; no acausal modeling |
-| C or C++ core with Python bindings (pybind11) | Python drives a compiled core | Core links the embedded library directly, or exports FMUs | Fast enough for dq and switching models | More build work up front |
-| Modelica: OpenModelica and the Modelica Standard Library | Acausal electrical, mechanical, and thermal models | Export FMUs; orchestrate with OMSimulator | Physics libraries exist; strong FMI support | Steep learning curve; sweeps need scripting |
-| MATLAB, Simulink, and Simscape | Block diagrams with powertrain libraries | Embedded code through S-functions | Industry standard; strong embedded workflow | License cost TBD; closed source conflicts with [DEC-002](../../docs/decisions/DEC-002-open-source-with-submodules.md) |
-
-Recommendation: start with the Python stack for sizing v0, and keep the block contract FMI-shaped. Hot blocks can move to C++ or Modelica later without changing interfaces.
+Scilab Xcos builds and runs the plant ([DEC-014](../../docs/decisions/DEC-014-plant-model-in-xcos.md), proposed in #37). Its FMI export is the path for co-simulation. Scilab version, FMI export and import support on macOS, and FMU compatibility with the uv Python project are open item 2 in [README.md](README.md).

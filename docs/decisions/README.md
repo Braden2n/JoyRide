@@ -22,3 +22,4 @@ One file per decision, from the [decision template](../templates/decision.md). S
 | [DEC-010](DEC-010-non-subsystem-work-structure.md) | Non-subsystem work lives in folders by kind |
 | [DEC-011](DEC-011-useful-session-definition.md) | A useful session is a multi-scenario drive cycle |
 | [DEC-012](DEC-012-priority-order-with-blocker-fallback.md) | Work cycles in priority order, falling back when blocked |
+| [DEC-014](DEC-014-plant-model-in-xcos.md) | The plant model is built in Scilab Xcos |
