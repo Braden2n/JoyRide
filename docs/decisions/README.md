@@ -1,7 +1,7 @@
 ---
 id: DECISIONS
 status: active
-updated: 2026-10-09
+updated: 2026-10-16
 ---
 
 # Decision log
@@ -19,6 +19,6 @@ One file per decision, from the [decision template](../templates/decision.md). S
 | [DEC-007](DEC-007-dissolve-launch-document.md) | Dissolve the launch document |
 | [DEC-008](DEC-008-solo-battery-work-plan.md) | Solo battery work under a written safety plan |
 | [DEC-009](DEC-009-subsystem-home-is-a-folder.md) | A subsystem home is a folder of submodules |
-| [DEC-010](DEC-010-non-subsystem-work-structure.md) | Folder structure for non-subsystem work |
+| [DEC-010](DEC-010-non-subsystem-work-structure.md) | Non-subsystem work lives in folders by kind |
 | [DEC-011](DEC-011-useful-session-definition.md) | A useful session is a multi-scenario drive cycle |
 | [DEC-012](DEC-012-priority-order-with-blocker-fallback.md) | Work cycles in priority order, falling back when blocked |
