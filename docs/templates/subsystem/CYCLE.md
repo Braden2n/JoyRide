@@ -45,4 +45,4 @@ Chosen concept: <DEC ID>.
 
 ## Results
 
-<MVP outcome against its criterion. Link the fold-back journal entry.>
+<MVP outcome against its criterion.>

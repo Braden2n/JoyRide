@@ -1,7 +1,7 @@
 ---
 id: SOLO-SAFETY
 status: draft
-updated: 2026-10-08
+updated: 2026-11-04
 ---
 
 # Solo work safety plan
@@ -59,13 +59,13 @@ Drafted for [#8](https://github.com/Braden2n/JoyRide/issues/8). It governs solo 
 2. Get away from the pack. Do not touch a hot, swelling, smoking, or venting pack.
 3. Leave the area, and call emergency services for fire or injury.
 4. Fight a fire only when it is small and you have a clear exit.
-5. Record the event in the journal.
+5. Record the event in a task issue.
 
 ### After a session
 
 1. Disconnect and secure the pack. Open the fuse or service disconnect.
 2. Tell the check-in contact that you are done.
-3. Log any near miss in the journal.
+3. Log any near miss in a task issue.
 
 ## Open items
 

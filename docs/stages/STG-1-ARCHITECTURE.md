@@ -1,7 +1,7 @@
 ---
 id: STG-1
 status: In progress
-updated: 2026-10-16
+updated: 2026-11-04
 stage_type: system
 subsystem: none
 spark: yes
@@ -16,7 +16,7 @@ Define the system before any spend. This stage sets up tools, gets rough numbers
 ## Entry and exit
 
 - Entry: project start.
-- Exit: the architecture checkpoint is answered in a journal entry.
+- Exit: the architecture checkpoint is answered.
 
 ## Inputs and neighbors
 
@@ -40,10 +40,9 @@ Sets every system REQ in GOALS.md.
 
 - [ ] Confirm or correct the [assumptions](../project/PROJECT.md#assumptions).
 - [ ] Install free tools as they become useful, for example KiCad with ngspice, FreeCAD, and Python with Jupyter. Leave embedded toolchains until the first MVP.
-- [ ] Write the first journal entry.
 - [ ] Sketch the workspace safety plan: charging and storage spot, ventilation, and fire response. Buy nothing yet.
 - [ ] Create the week-1 [tracking artifacts](../project/PROJECT.md#tracking-artifacts-to-create).
-- [ ] Done when KiCad opens, a Python notebook runs, and a journal entry is committed.
+- [ ] Done when KiCad opens and a Python notebook runs.
 
 ### 1b. System-level research (about 1 week)
 
@@ -85,7 +84,7 @@ Spend about 3 to 4 hours per stream, and end each with a short note on what it m
 
 ## Deliverables
 
-- Journal entries, the workspace safety note, and the tracking artifacts.
+- The workspace safety note and the tracking artifacts.
 - Benchmark table, sizing model v0, and the open-source link list.
 - NEED rows and system goals in GOALS.md.
 - Architecture, interface sketches, and an optional DBC skeleton.

@@ -1,7 +1,7 @@
 ---
 id: GOALS
 status: draft
-updated: 2026-10-06
+updated: 2026-11-04
 ---
 
 # JoyRide goals
@@ -23,7 +23,7 @@ System requirements use only the SYS, SAF, and COST codes. Subsystem requirement
 | --- | --- | --- | --- | --- | --- | --- |
 | REQ-SYS-001 | The kart reaches a useful top speed on level pavement. | 45mph | 30mph | GPS test, calculated wheel speed, other measurement | DRV | Agreed |
 | REQ-SYS-002 | The kart runs long enough for a useful session, a drive cycle with multiple driving scenarios ([DEC-011](../decisions/DEC-011-useful-session-definition.md), #11). | 30min | 15min | Field test | PACK | Agreed |
-| REQ-SYS-003 | The kart carries its design load, driver plus kart. | 400lb driver | 300lb driver | Test and analysis | CHS | Agreed |
+| REQ-SYS-003 | The kart carries its design load, driver plus kart. | 300lb driver | 300lb driver | Test and analysis | CHS | Agreed |
 | REQ-SYS-004 | Power and energy are sized for the speed, load, and run time above. | TBD (kW & kWh) - based on sizing simulation | TBD - based on sizing simulation | Analysis and test | DRV, PACK | Draft |
 | REQ-SYS-005 | Subsystems communicate over a shared network. | TBD (protocol and rates) | TBD | Test | NET | Draft |
 | REQ-SAF-001 | An emergency stop removes traction power independent of software. | Hardware path only | Hardware path only | Test and inspection | PACK | Draft |

@@ -85,7 +85,7 @@ Start a mention with a model and an effort level to set them for that run, for e
 
 | Work | Agent | Builder |
 | --- | --- | --- |
-| Drafting documents, DEC drafts, journal entries, test report drafts | Drafts in a PR | Reviews, decides, and merges |
+| Drafting documents, DEC drafts, test report drafts | Drafts in a PR | Reviews, decides, and merges |
 | Triage, summaries, finding related IDs | Comments | Confirms |
 | Test results, measurements, costs | Records only what the builder supplies | Supplies the data |
 | Decisions, goal and risk changes, requirement levels | Drafts only | Decides and approves |
@@ -107,7 +107,6 @@ docs/
   architecture/interfaces/         ICD files (created with the first ICD)
   decisions/                       DEC files and the decision log
   procedures/                      safety and working procedures
-  journal/                         dated entries and checkpoints (created with the first entry)
   stages/                          STG documents
   templates/                       all templates and record schemas
 tools/                             simulation and analysis tools outside any subsystem (DEC-010)
@@ -134,7 +133,7 @@ Necessary:
 
 - Decisions, with the options that were rejected.
 - System goals, risks, interfaces, and stage plans.
-- Checkpoint outcomes and journal entries.
+- Checkpoint outcomes.
 - Open items, each with an owner.
 - Links between IDs, so items trace to each other.
 
@@ -178,10 +177,10 @@ Unnecessary, so leave it out:
 
 | Event | Update |
 | --- | --- |
-| Weekly session | Write a journal entry. Tick stage tasks. Update task issues. |
+| Weekly session | Tick stage tasks. Update task issues. |
 | Decision made | Add a DEC file and a decision log row. Link the DEC from the stage document's Decisions table. |
-| Checkpoint held | Write a journal entry from the checkpoint variant. Update the stage document's status and open items. |
-| Goal or risk changes | Edit its row in GOALS.md or RISKS.md. Note why in the journal. |
+| Checkpoint held | Answer the checkpoint questions in the stage document. Update its status and open items. |
+| Goal or risk changes | Edit its row in GOALS.md or RISKS.md. |
 | Interface agreed | Add an ICD file and its row in the SUBSYSTEMS.md interface list. |
 | Purchase | Log it in the budget tracker with a category and a subsystem code. |
 | Cycle step 2 | Create the subsystem home from the templates. |

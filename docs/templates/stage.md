@@ -97,7 +97,7 @@ Delete these comments.
 
 ## Checkpoint additions
 
-<Stage-specific questions added to the standard checkpoint questions.>
+<Stage-specific questions added to the standard checkpoint questions in PROJECT.md. When the checkpoint is held, answer every question here.>
 
 ## Out of scope
 
