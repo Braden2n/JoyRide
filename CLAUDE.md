@@ -167,12 +167,31 @@ Unnecessary, so leave it out:
 - Write tasks as short imperatives.
 - Write equations in LaTeX: `$...$` inline and `$$...$$` on their own lines for display. Never put a `|` inside math in a table.
 - Use backticks only for code, file names, and parameter names, never for equations.
-- Follow each set of equations with a symbol table: Symbol, Parameter, Meaning, Unit, and Value.
+- Follow each set of equations with a symbol table: Symbol, Parameter, Meaning, Unit, and Value. Add a Level column when the model has fidelity levels.
 - Give each quantity one symbol and one parameter name, and use them everywhere, including `params/` files.
+- Use SI units. Add the imperial value in parentheses where a requirement states it, as in 136 kg (300 lb).
+
+## Diagrams
+
 - Draw diagrams in Mermaid, not ASCII art. Add a one-line legend when line styles carry meaning.
 - Lay diagrams out top to bottom, so they fit the page width. Avoid left-to-right flowcharts.
-- Split a diagram that grows past about ten nodes, or one long sequence, into smaller diagrams. Name the shared node or step where each part joins the next.
-- Use SI units. Add the imperial value in parentheses where a requirement states it, as in 136 kg (300 lb).
+- Start each flowchart with front matter that sets `layout: elk` and `elk: nodePlacementStrategy: NETWORK_SIMPLEX`. ELK draws right-angled lines. Do not use the `step` curve.
+- Draw power as thick lines (`==>`), commands and control signals as solid lines (`-->`), and feedback only as dotted lines (`-.->`).
+- Use a double-headed arrow only when the same line type runs both ways, such as a power port. A command one way and feedback the other are two edges.
+- Give every edge between blocks a unique name, and define its signals in a table. Label edges that leave a subgraph. Name the edges inside a subgraph in a table instead.
+- Use a subgraph only to group two or more related nodes. Name it for their role in the model, not their owner. A table carries owners.
+- Declare nodes and command edges from top to bottom, then feedback edges. If a node still lands below the nodes it commands, add invisible links (`~~~`) from it to them, with a `%%` comment saying why.
+- Never reverse an edge's declaration to fix the layout. Mermaid draws no arrowhead on a start-only arrow such as `<-.-`.
+- Split a diagram that grows past about ten nodes outside subgraphs, or one long sequence, into smaller diagrams. Name the shared node or step where each part joins the next.
+- Split only where the parts share one or two nodes. Keep a diagram whole when the same blocks sit on several of its paths.
+
+Preview every Mermaid diagram before handing it to the builder. Render it with the engine the builder sees, so both layouts match:
+
+1. Read the Mermaid version that VS Code's built-in preview bundles, in `extensions/mermaid-markdown-features/markdown-preview-out/index.js` inside the VS Code app. VS Code 1.142 bundles Mermaid 11.17.0 with ELK.
+2. In the scratchpad, install `@mermaid-js/mermaid-cli` 11.x and `@mermaid-js/layout-elk`. Pin `mermaid` to the bundled version through npm `overrides`. Never install into the repository.
+3. Install `puppeteer` with `PUPPETEER_SKIP_DOWNLOAD=true`, and point it at the installed Chrome through a puppeteer config file. mermaid-cli 11.x runs on Node 20; 12.x needs Node 22.13 or later.
+4. Render with the `base` theme, `darkMode`, and VS Code's UI font, `-apple-system` at 13px. The font sets node widths, so it changes the layout. Colors may differ from the builder's theme.
+5. View the image. Fix crossings, backward edges, and long detours, then render again.
 
 ## Organization
 
