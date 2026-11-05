@@ -1,7 +1,7 @@
 ---
 id: RESEARCH-ADULT-LEAGUES
 status: draft
-updated: 2026-10-16
+updated: 2026-11-04
 ---
 
 # Adult Racing Leagues
@@ -20,7 +20,7 @@ Adult kart classes set a comparable baseline for JoyRide's driver mass, kart mas
 
 ## Findings
 
-1. Adult electric rental karts are the closest match to JoyRide. They run 48 to 50 V packs, 10 to 14 kW, about 3 to 4 kWh, and reach 40 to 53 mph.
+1. Adult electric rental karts are the closest match to JoyRide. They run 48 to 50 V packs, 10 to 14 kW, about 3 to 4 kWh, and reach 40 to 53 mph. The student evGrandPrix series confirms the range: a 51.2 V, 3.1 kWh spec pack, and a 14 kW, 4.3 kWh collegiate cap.
 2. Senior race pace is out of reach under 60 V at JoyRide's load. The FIA's 60 V Senior class caps power at 28 kW, which already means over 550 A at 50 V.
 3. The paper's "no senior eKart" conclusion came from a regulatory mass limit, not physics. Series have since raised minimum mass for electric classes: Rotax E20 Senior runs at 220 kg against 162 kg for Senior MAX.
 4. Racing duty is far heavier than rental duty. Race karts average about 0.83 of peak power over a lap. A 48 V rental kart averages about 4.2 kW.
@@ -84,8 +84,18 @@ Adult class mass runs 150 to 181 kg total. Masters and heavy classes add 5 to 20
 | Blue Shock Race 48 V rental kart | 48 V | Not stated | 35 Ah, about 1.7 kWh | Not stated | 80 km/h | 30+ min, 0.7 kWh per 10 min ride |
 | OTL Storm EFD rental kart (K1 Speed) | 48 V | 14 kW | Lead or lithium options | Not stated | 40 mph | Rental |
 | Electrathon America (2026) | Any | Any | About 1 kWh, 73 lb lead-acid limit | 180 lb min. driver | Not stated | 1 hour |
+| evGrandPrix Collegiate (2026) | Max 100 V peak | 14 kW from the pack, logged and enforced | Max 4,320 Wh nominal | Not limited | Not stated | 50 laps, 13.5 miles |
+| evGrandPrix High School (2025-26) | 51.2 V nominal LiFePO4, spec pack | Max 220 A from the pack, about 11 kW | 3,072 Wh | 365 lb (166 kg) min. total | Not stated | Race |
 
 Electric class mass sits 25 to 58 kg above the matching combustion class. Electrathon vehicles are streamlined, so they set an efficiency floor rather than a kart baseline.
+
+evGrandPrix is Purdue University's student series for electric sprint karts, with college and high school classes:
+
+- Both classes use a commercial sprint kart chassis, a 39.75 to 43 inch wheelbase, and Hoosier R60B tires (10x4.5-5 front, 11x7.1-5 rear).
+- The high school class specifies a Motenergy ME0708 brushed DC motor and an Alltrax 48 V controller. Colleges choose their own motor.
+- Colleges score energy efficiency in Wh per lap, logged by a power and energy monitor (PEM) on every kart. Results pages do not publish the per-kart values.
+- A Trine University college kart (2021) used an ME0708 at 48 V. It reached 40.4 mph, and took 13.4 s to get there from rest.
+- The Kettering EV Kartz kart is the subject of the fitted road-load study in [vehicle-dynamics-constants.md](../Vehicle%20Dynamics/vehicle-dynamics-constants.md#aerodynamic-drag).
 
 The CIK-FIA E-Karting rules also define safety hardware that suits REQ-SAF-001: a general circuit breaker, a driver master switch, an emergency stop, pack status lights, and ready-to-move lights. The pack mounts centrally under the steering column.
 
@@ -100,7 +110,7 @@ US adults in 2015 to 2018 (CDC NHANES, men and women 20 and over, without race g
 
 - Adult kart classes assume a 70 to 100 kg driver. Rotax Senior's 162 kg total leaves at most about 90 kg for the driver, given the 70 kg CIK-FIA kart minimum.
 - Rental operators cap drivers near 300 lb (K1 Speed).
-- REQ-SYS-003's 300 lb (136 kg) minimum sits just above the 95th percentile man before gear. Its 400 lb target is far beyond it.
+- REQ-SYS-003's 300 lb (136 kg) design driver sits just above the 95th percentile man before gear.
 
 ## Extrapolation for JoyRide
 
@@ -118,7 +128,7 @@ The method follows the paper, with battery energy `E_batt = P_avg x t / eta x 1.
 
 The rental result checks out against hardware. A 3.0 kWh need fits the BSR-R3's 3.2 kWh standard pack.
 
-Load correction: those anchors assume a 70 to 100 kg driver. A 136 to 181 kg JoyRide driver (REQ-SYS-003) on a 110 to 140 kg kart gives 1.5 to 1.9 times a Rotax Senior's 165 kg. The kart range spans the BSR X4 (110 kg) and Rotax E20 (142 kg, Rotax product page). Rolling and acceleration loads scale with mass, but aerodynamic drag does not. Linear scaling is therefore an upper bound.
+Load correction: those anchors assume a 70 to 100 kg driver. A 136 kg JoyRide driver (REQ-SYS-003) on a 110 to 140 kg kart gives 1.5 to 1.7 times a Rotax Senior's 165 kg. The kart range spans the BSR X4 (110 kg) and Rotax E20 (142 kg, Rotax product page). Rolling and acceleration loads scale with mass, but aerodynamic drag does not. Linear scaling is therefore an upper bound.
 
 Power under the 60 V ceiling (REQ-SAF-002) is current-limited:
 
@@ -146,6 +156,8 @@ Local copies, accessed 2026-10-16:
 | [BSR-R3 Generation 2.5 Electric Rental Kart](BSR-R3%20Generation%202.5%20Electric%20Rental%20Kart.pdf) | 50.4 V rental power, pack energy, mass, current |
 | [OTL Storm EFD Kart Technical Data Sheet 2020](OTL%20Storm%20EFD%20Kart%20Technical%20Data%20Sheet%202020.pdf) | 48 V, 14 kW rental kart |
 | [CDC Anthropometric Reference Data 2015-2018](CDC%20Anthropometric%20Reference%20Data%202015-2018.pdf) | US adult mass percentiles (Tables 3 and 5) |
+| [evGrandPrix Collegiate Rules 2026](evGrandPrix%20Collegiate%20Rules%202026.pdf) | 14 kW, 100 V, and 4,320 Wh limits; chassis, tires, race length, efficiency scoring |
+| [evGrandPrix High School Rules 2025-26](evGrandPrix%20High%20School%20Rules%202025-26.pdf) | Spec motor, controller, and pack; 220 A limit; 365 lb minimum |
 
 Links (pages change each season):
 
@@ -162,5 +174,7 @@ Links (pages change each season):
 | [K1 Speed Pricing and Driver Limits](K1%20Speed%20Pricing%20and%20Driver%20Limits.webloc) | 300 lb rental driver cap |
 | [IAME KA100 Engine - Karting Australia](IAME%20KA100%20Engine%20-%20Karting%20Australia.webloc) | KA100 22 hp rating |
 | [Briggs and Stratton LO206 Information - KartSport NZ](Briggs%20and%20Stratton%20LO206%20Information%20-%20KartSport%20NZ.webloc) | LO206 rev limit and class use |
+| [evGrandPrix - Purdue University](evGrandPrix%20-%20Purdue%20University.webloc) | Series home, rules, and results pages |
+| [Trine University evGrandPrix Electric Go-Kart Poster 2021](Trine%20University%20evGrandPrix%20Electric%20Go-Kart%20Poster%202021.webloc) | ME0708 kart top speed and acceleration |
 
 Not saved: the X30 30 hp rating (Sodikart X30 product page), the LO206 8.8 hp rating (90Racing listing), and the LO206 Senior Heavy 390 lb weight (Road America Karting Club 2024 class structure).
