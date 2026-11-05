@@ -23,6 +23,7 @@ Core-document rules:
 
 - Treat stage tasks and the cycle as recommendations. The builder's latest instruction wins.
 - Never invent a value. Write TBD and add an open item to the owning document.
+- A literature estimate is not invented if it cites its sources, gives a sweep range, and the builder accepts it.
 - Ask before resolving anything marked "builder decision".
 - Do not add scope. New ideas go to the backlog as an issue labeled `parking lot`.
 - Named parts, tools, and protocols are examples, not decisions, until a DEC accepts them.
@@ -162,7 +163,16 @@ Unnecessary, so leave it out:
 - Use relative links. Link to headings by their GitHub anchors.
 - In issues, PRs, and comments, link files with absolute URLs from `https://github.com/Braden2n/JoyRide/blob/main/`. Relative links break there.
 - Citing an ID is fine. Restating its content is not.
+- Link to the section that owns an equation, value, or definition. Do not copy it into another document.
 - Write tasks as short imperatives.
+- Write equations in LaTeX: `$...$` inline and `$$...$$` on their own lines for display. Never put a `|` inside math in a table.
+- Use backticks only for code, file names, and parameter names, never for equations.
+- Follow each set of equations with a symbol table: Symbol, Parameter, Meaning, Unit, and Value.
+- Give each quantity one symbol and one parameter name, and use them everywhere, including `params/` files.
+- Draw diagrams in Mermaid, not ASCII art. Add a one-line legend when line styles carry meaning.
+- Lay diagrams out top to bottom, so they fit the page width. Avoid left-to-right flowcharts.
+- Split a diagram that grows past about ten nodes, or one long sequence, into smaller diagrams. Name the shared node or step where each part joins the next.
+- Use SI units. Add the imperial value in parentheses where a requirement states it, as in 136 kg (300 lb).
 
 ## Organization
 
