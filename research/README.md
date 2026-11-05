@@ -1,7 +1,7 @@
 ---
 id: RESEARCH
 status: active
-updated: 2026-10-16
+updated: 2026-11-04
 ---
 
 # Research
@@ -13,6 +13,7 @@ Reference documents, sources, and learnings that inform decisions. A DEC cites a
 | File | Topic | Used by |
 | --- | --- | --- |
 | [adult-racing-leagues.md](Adult%20Racing%20Leagues/adult-racing-leagues.md) | Adult kart class mass, power, and energy as a sizing baseline | REQ-SYS-003, REQ-SYS-004, plant model |
+| [vehicle-dynamics-constants.md](Vehicle%20Dynamics/vehicle-dynamics-constants.md) | Road-load constants: Cd, Af, rolling resistance, load mass | Plant model |
 
 ## Conventions
 
