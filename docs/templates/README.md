@@ -1,7 +1,7 @@
 ---
 id: TEMPLATES
 status: active
-updated: 2026-10-09
+updated: 2026-11-04
 ---
 
 # Templates and record schemas
@@ -15,7 +15,6 @@ Every repeated document has a template, and every ID type has a schema. Placemen
 | [stage.md](stage.md) | STG documents | `docs/stages/` |
 | [decision.md](decision.md) | DEC files | `docs/decisions/` |
 | [interface.md](interface.md) | ICD files | `docs/architecture/interfaces/` |
-| [journal-entry.md](journal-entry.md) | Journal entries and the four checkpoints | `docs/journal/` |
 | [test-report.md](test-report.md) | TST files | Subsystem `docs/tests/`; root for TST-SYS |
 | [subsystem/README.md](subsystem/README.md) | Subsystem home index | `subsystems/<CODE>/docs/` |
 | [subsystem/REQUIREMENTS.md](subsystem/REQUIREMENTS.md) | Subsystem requirements | `subsystems/<CODE>/docs/` |

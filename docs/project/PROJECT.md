@@ -1,7 +1,7 @@
 ---
 id: PROJECT
 status: draft
-updated: 2026-10-06
+updated: 2026-11-04
 ---
 
 # JoyRide project guide
@@ -40,7 +40,7 @@ Every level, including Spark, is a valid stopping point. The current aim is Spar
 
 | Level | Outcome | Evidence |
 | --- | --- | --- |
-| Spark | DRV and PACK each have a paper proof of concept and a subsystem MVP on the bench. The builder then decides whether to continue. | Journal notes, bench demos |
+| Spark | DRV and PACK each have a paper proof of concept and a subsystem MVP on the bench. The builder then decides whether to continue. | Bench demos |
 | Bronze | The kart moves under its own power with the safety architecture in place. Commercial parts may fill any subsystem not yet designed. | Kart MVP checkpoint, documented drive test |
 | Silver | At least three subsystems (suggested: PACK, VCU, TEL) run builder-designed hardware and firmware on CAN with live telemetry. | Test reports, telemetry demo |
 | Gold | A builder-designed motor controller drives the kart, with data logging and a web or mobile interface. | Drive test data, system goals traced to tests |
@@ -76,7 +76,7 @@ The repository is fully open source, with one submodule per atomic piece ([DEC-0
 
 ## Development approach
 
-A loose, nested version of a formal product development process. Every step is a recommendation. Skip, shorten, or reorder any step that is not helping, and note why in the journal.
+A loose, nested version of a formal product development process. Every step is a recommendation. Skip, shorten, or reorder any step that is not helping.
 
 1. **Stage 1, Architecture** ([STG-1](../stages/STG-1-ARCHITECTURE.md)). Runs once, is free, and takes about 3 weeks. Covers setup, rough numbers, system goals, and subsystems with rough interfaces.
 2. **Stage 2, Subsystem cycles** (`STG-2-<code>`). Runs once per subsystem, in the order set by [DEC-005](../decisions/DEC-005-subsystem-order.md). Each goes from a learning burst to the smallest useful physical iteration.
@@ -104,7 +104,6 @@ There are two kinds of MVP. A subsystem MVP is the smallest isolated demonstrati
 
 The standard deliverables of every cycle are:
 
-- journal entries
 - the subsystem home (README, REQUIREMENTS, CYCLE)
 - test reports
 - updates to GOALS, RISKS, and SUBSYSTEMS
@@ -152,12 +151,12 @@ Purchasing rules:
 
 | Rhythm | Activity | Time |
 | --- | --- | --- |
-| Weekly | Pick tasks, check the budget, write a journal entry | About 30 minutes |
+| Weekly | Pick tasks, check the budget | About 30 minutes |
 | Monthly | Review RISKS, reconcile the budget, update learning goals | About 1 hour |
-| Checkpoint | Answer the checkpoint questions in a journal entry | About 30 minutes |
+| Checkpoint | Answer the checkpoint questions in the stage document | About 30 minutes |
 | End of each cycle | Retrospective on the subsystem and on the process | About 1 hour |
 
-Checkpoints are decisions for the builder, not approvals. Their questions are in the [journal entry template](../templates/journal-entry.md).
+Checkpoints are decisions for the builder, not approvals. Answer each question in a line or two, in the stage document's Checkpoint additions section, along with that stage's own questions.
 
 | Checkpoint | When |
 | --- | --- |
@@ -175,6 +174,35 @@ Rules of thumb:
 
 The project is done when three things are true. The builder declares a success level, the record matches the as-built kart, and a final retrospective is written.
 
+### Architecture checkpoint
+
+- Can I name every subsystem and what it does?
+- Which subsystem do I start with, and why?
+- Do I have a rough cost for each subsystem?
+- Is anything still unclear enough to stop me from starting?
+
+### Spend checkpoint
+
+- Does the paper proof of concept hold up?
+- What is the cheapest physical test, and does it fit one month's budget?
+- Do I still want to build this?
+- Decision: go, adjust, or park.
+
+### Fold-back checkpoint
+
+- Did the MVP meet its pass or fail criterion?
+- What did I learn?
+- What changes in the architecture, interfaces, goals, or risks?
+- Was it fun, and what comes next?
+- Process retrospective: what research was wasted, what was worth it, and what changes next time?
+
+### Kart MVP checkpoint
+
+- Does the kart drive safely at low speed?
+- Have the E-stop and the BMS cutoffs been tested?
+- Do my notes match the kart as built?
+- Which placeholder do I replace first?
+
 ## Tracking artifacts to create
 
 Create each one only when it is needed. Prefer CSV or Markdown in this repository, with columns from the [record schemas](../templates/README.md).
@@ -186,7 +214,7 @@ Create each one only when it is needed. Prefer CSV or Markdown in this repositor
 | Budget tracker | Monthly cap, rollover, and spend by subsystem | Week 1 |
 | Shopping list | Tools and parts, empty until a cycle needs something | Week 1 |
 
-Goals, risks, decisions, the journal, interfaces, tests, and the backlog already have homes. See [CLAUDE.md](../../CLAUDE.md#layout).
+Goals, risks, decisions, interfaces, tests, and the backlog already have homes. See [CLAUDE.md](../../CLAUDE.md#layout).
 
 ## Assumptions
 
