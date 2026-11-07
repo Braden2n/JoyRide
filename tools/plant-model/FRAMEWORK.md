@@ -6,7 +6,7 @@ updated: 2026-11-07
 
 # Plant model framework
 
-The plant is a set of [blocks](#blocks) joined by named buses and ports. The wiring is fixed: every edge exists at every level, at its neutral value where a level does not use it. Each block can be built at three [fidelity levels](#fidelity-and-modes), and a level changes only what happens inside a block. Build every block at Level 1 first, then raise one block at a time when a question needs it. The framework is [tool-neutral](#block-contract): Scilab Xcos or OpenModelica builds the blocks, and FMI joins the plant to embedded code ([DEC-014](../../docs/decisions/DEC-014-plant-model-in-xcos.md), proposed). Every parameter value is TBD unless research sets a first-pass value.
+The plant is a set of [blocks](#blocks) joined by named buses and ports. The wiring is fixed: every edge exists at every level, at its neutral value where a level does not use it. Each block can be built at three [fidelity levels](#fidelity-and-modes), and a level changes only what happens inside a block. Build every block at Level 1 first, then raise one block at a time when a question needs it. The framework is [tool-neutral](#block-contract): Scilab Xcos or OpenModelica builds the blocks, and FMI joins the plant to embedded code ([DEC-014](../../docs/decisions/DEC-014-plant-model-in-xcos.md)). Every parameter value is TBD unless research sets a first-pass value.
 
 ## Contents
 

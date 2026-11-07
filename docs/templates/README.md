@@ -37,7 +37,7 @@ Codes: subsystem codes are DRV, PACK, CHS, VCU, TEL, NET, TMS, and RMT. System c
 | CON | `CON-<code>-<letter>` | Row | Subsystem `CYCLE.md` |
 | DEC | `DEC-NNN` | File | `docs/decisions/` |
 | RSK | `RSK-NNN` | Row | `docs/project/RISKS.md` |
-| TST | `TST-<code or SYS>-NNN` | File | Subsystem `docs/tests/`; root for SYS |
+| TST | `TST-<code or SYS>-NNN` | File | Subsystem `docs/tests/`; root for SYS (code confirmed in #35) |
 | PRT | `PRT-<code>-NN` | Row | Subsystem `CYCLE.md` |
 | LRN | `LRN-NNN` | Row | `docs/project/GOALS.md` |
 | Issue | `#N`, GitHub's issue number (no project prefix) | Issue | GitHub issues |

@@ -1,7 +1,7 @@
 ---
 id: DEC-014
-status: Proposed
-decided: TBD
+status: Accepted
+decided: 2026-11-07
 updated: 2026-11-07
 ---
 
@@ -30,3 +30,4 @@ Build the plant model in Scilab Xcos, OpenModelica, or both. The blocks follow o
 
 - [FRAMEWORK.md](../../tools/plant-model/FRAMEWORK.md) is tool-neutral and specifies the block contract in FMI terms. Mapping it to each tool follows the choice of which tool builds which block.
 - The uv Python project is removed from `tools/plant-model/`.
+- Resolves the tool stack question (#37). The FMI interface type (#42) and which tool builds which block (#43) stay open.

@@ -110,7 +110,7 @@ RSK-004, RSK-008, RSK-009.
 | Folder structure for non-subsystem work | All | DEC-010 (resolved in #36) |
 | Definition of a useful session | PACK | DEC-011 (resolved in #11) |
 | Cycle scheduling | All | DEC-012 (resolved in #10) |
-| Plant model tool stack | DRV, PACK | DEC-014 (Proposed, #37) |
+| Plant model tool stack | DRV, PACK | DEC-014 (resolved in #37) |
 
 ## Checkpoint additions
 
@@ -127,4 +127,4 @@ RSK-004, RSK-008, RSK-009.
 
 | # | Open item | Owner |
 | --- | --- | --- |
-| 2 | Confirm the TST-SYS code in the [templates](../templates/README.md). Status vocabularies confirmed in #13. | Builder decision |
+| None | | |
