@@ -27,14 +27,18 @@ The builder found a local makerspace that could serve as the alternative. It may
 
 ## Decision
 
-Proposed: do no lithium work at home. Use fume-extracted home space for electronics work only, and do lithium work at the makerspace, once the makerspace is confirmed. The builder has not yet stated the makerspace as final.
+Proposed: do no lithium work at home. Use fume-extracted home space for electronics work only, and do lithium work at the makerspace. The builder toured the makerspace and confirmed it as the lithium workspace (#9). It is not yet Accepted, because the fire response and membership cost are not confirmed.
 
 ## Consequences
 
+- Confirmed by the builder's tour (#9):
+  - The makerspace is the lithium workspace.
+  - It permits lithium cell handling and charging.
+  - Storage is adequate with safety measures. The measures are TBD.
+  - Access is 24/7 after a probationary period. The length of the probation is TBD.
 - Open items for the builder, before this DEC is Accepted:
-  - Confirm the makerspace is the lithium workspace.
-  - Confirm the makerspace permits lithium cell handling, charging, and storage, and has a fire response: TBD.
-  - Confirm membership cost and access hours: TBD.
+  - Confirm the makerspace fire response: TBD.
+  - Confirm membership cost: TBD.
 - Resolves [STG-1](../stages/STG-1-ARCHITECTURE.md) open item 1 once Accepted (#9).
 - RSK-004 and the PROJECT.md workspace constraint record the builder's finding on the home workspace.
 - Once Accepted, the workspace safety plan and the workspace and safety budget line change to fit the makerspace.
