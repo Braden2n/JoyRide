@@ -2,7 +2,7 @@
 id: DEC-013
 status: Proposed
 decided: TBD
-updated: 2026-10-09
+updated: 2026-11-07
 ---
 
 # DEC-013: Do lithium work at a local makerspace
@@ -36,7 +36,5 @@ Proposed: do no lithium work at home. Use fume-extracted home space for electron
   - Confirm the makerspace permits lithium cell handling, charging, and storage, and has a fire response: TBD.
   - Confirm membership cost and access hours: TBD.
 - Resolves [STG-1](../stages/STG-1-ARCHITECTURE.md) open item 1 once Accepted (#9).
-- Follow-ups for the builder to approve, not made here:
-  - Update RSK-004 cause and mitigation.
-  - Revisit the workspace and safety budget line and the workspace assumption in PROJECT.md, given shared tool access.
-  - Rewrite the workspace safety plan for the makerspace.
+- RSK-004 and the PROJECT.md workspace constraint record the builder's finding on the home workspace.
+- Once Accepted, the workspace safety plan and the workspace and safety budget line change to fit the makerspace.

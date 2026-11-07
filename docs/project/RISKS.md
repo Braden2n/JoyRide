@@ -1,7 +1,7 @@
 ---
 id: RISKS
 status: draft
-updated: 2026-10-06
+updated: 2026-11-07
 ---
 
 # JoyRide risk register
@@ -18,7 +18,7 @@ Hazards and project risks, with candidate mitigations.
 | RSK-001 | Lithium pack fire or thermal runaway | Cell damage, overcharge, short circuit, poor charging practice | Quality cells or a reputable pack, independent protection, main fuse near the pack, fire-safe charging area | Any lithium cell work | PACK | Open |
 | RSK-002 | Unintended acceleration | Sensor, firmware, or controller fault | Redundant throttle with a plausibility check, hardware E-stop, wheels-off testing, speed-limit modes | Any powered motion | VCU, DRV | Open |
 | RSK-003 | Short circuit or arc at the pack | Tool slip, wiring fault | Insulated tools, covers, fusing, precharge, a second look at wiring before power-up | Any high-current wiring | PACK, NET | Open |
-| RSK-004 | Poor ventilation for soldering fumes and lithium handling | The garage and spare bedroom lack good ventilation | Fume extraction or an open-air setup for soldering; ventilation and a fire-safe spot for charging | Before any soldering or lithium work | Project, PACK | Open |
+| RSK-004 | Poor ventilation for soldering fumes and lithium handling | The garage and spare bedroom lack good ventilation, and lack room to remove a battery in an emergency | Desktop fume extraction for soldering; lithium work only at a makerspace ([DEC-013](../decisions/DEC-013-lithium-work-at-makerspace.md), proposed) | Before any soldering or lithium work | Project, PACK | Open (changed in #9) |
 | RSK-005 | Loss of braking | Mechanical failure | Proven mechanical brakes that work independently of the electrics | Integration | CHS | Open |
 | RSK-006 | Structural failure | Frame crack, loose mount | Commercial frame, inspection checklist, torque marks | Integration | CHS | Open |
 | RSK-007 | Injury while driving | Speed, falls, collisions | Helmet, speed limit, a clear and closed test area | Integration | Project, VCU | Open |
