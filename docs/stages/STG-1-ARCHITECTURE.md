@@ -105,7 +105,7 @@ RSK-004, RSK-008, RSK-009.
 | System goal values | All | |
 | Kart MVP definition and placeholders | All | |
 | Starting subsystem | All | DEC-005 |
-| Workspace safety plan | PACK | DEC-013 (Proposed, #9) |
+| Workspace safety plan | PACK | DEC-013 (resolved in #9) |
 | Subsystem home structure | All | DEC-009 |
 | Folder structure for non-subsystem work | All | DEC-010 (resolved in #36) |
 | Definition of a useful session | PACK | DEC-011 (resolved in #11) |
@@ -127,5 +127,4 @@ RSK-004, RSK-008, RSK-009.
 
 | # | Open item | Owner |
 | --- | --- | --- |
-| 1 | Workspace for lithium work. The builder found the home workspace unsafe for lithium work; confirm the makerspace in DEC-013. | Builder decision |
 | 2 | Confirm the TST-SYS code in the [templates](../templates/README.md). Status vocabularies confirmed in #13. | Builder decision |
