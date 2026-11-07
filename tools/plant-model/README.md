@@ -6,14 +6,14 @@ updated: 2026-11-07
 
 # Plant model
 
-A vehicle powertrain plant model for JoyRide. It starts as the sizing model v0 of [STG-1](../../docs/stages/STG-1-ARCHITECTURE.md#1b-system-level-research-about-1-week) task 1b. Later it becomes the plant for co-simulation with compiled embedded code. The model is tool-neutral: Scilab Xcos or OpenModelica builds it, and FMI connects it to the embedded code ([DEC-014](../../docs/decisions/DEC-014-plant-model-in-xcos.md), proposed).
+A vehicle powertrain plant model for JoyRide. It starts as the sizing model v0 of [STG-1](../../docs/stages/STG-1-ARCHITECTURE.md#1b-system-level-research-about-1-week) task 1b. Later it becomes the plant for co-simulation with compiled embedded code. The model is tool-neutral: Scilab Xcos or OpenModelica builds it, and FMI connects it to the embedded code ([DEC-014](../../docs/decisions/DEC-014-plant-model-in-xcos.md)).
 
 | Field | Value |
 | --- | --- |
 | Serves | REQ-SYS-001, REQ-SYS-002, REQ-SYS-003, REQ-SYS-004, REQ-SAF-002 in [GOALS.md](../../docs/project/GOALS.md#system-requirements) |
 | Owners | DRV and PACK |
 | Users | DRV, PACK, VCU, and TMS cycles; STG-3 integration |
-| Tools | Scilab Xcos or OpenModelica, per [DEC-014](../../docs/decisions/DEC-014-plant-model-in-xcos.md) (proposed) |
+| Tools | Scilab Xcos or OpenModelica, per [DEC-014](../../docs/decisions/DEC-014-plant-model-in-xcos.md) |
 | Form | Plain folder until real code exists, then its own submodule ([DEC-002](../../docs/decisions/DEC-002-open-source-with-submodules.md), [DEC-010](../../docs/decisions/DEC-010-non-subsystem-work-structure.md)) |
 | Design | [FRAMEWORK.md](FRAMEWORK.md), including the [fidelity levels and modes](FRAMEWORK.md#fidelity-and-modes) |
 
