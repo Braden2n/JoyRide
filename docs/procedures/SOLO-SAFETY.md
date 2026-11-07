@@ -1,7 +1,7 @@
 ---
 id: SOLO-SAFETY
 status: draft
-updated: 2026-11-04
+updated: 2026-11-07
 ---
 
 # Solo work safety plan
@@ -66,9 +66,3 @@ Drafted for [#8](https://github.com/Braden2n/JoyRide/issues/8). It governs solo 
 1. Disconnect and secure the pack. Open the fuse or service disconnect.
 2. Tell the check-in contact that you are done.
 3. Log any near miss in a task issue.
-
-## Open items
-
-| # | Open item | Owner |
-| --- | --- | --- |
-| 1 | Set the monthly check interval | Builder decision |

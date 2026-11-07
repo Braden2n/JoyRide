@@ -41,7 +41,7 @@ Learning is the desired outcome. These goals are aspirational, and might not all
 Beginner < Novice < Intermediate < Competent < Proficient < Experienced < Expert
 
 | ID | Skill area | Starting level | Target by project end | Practiced in |
-| --- | --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | LRN-001 | Product requirements and systems engineering | Novice | Clearly define, refine, and specify requirements at product, system, subsystem, and implementation levels | STG-1 |
 | LRN-002 | Subsystem architecture and design | Intermediate | Convert system requirements into easily transferable subsystem designs and specifications for implementation | STG-2 |
 | LRN-003 | Design implementation | Intermediate | Develop and deliver implementations that meet subsystem design specifications | STG-3 |

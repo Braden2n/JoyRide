@@ -24,10 +24,9 @@ Raised in #37. The plant model needs a simulation tool that runs standalone for 
 
 ## Decision
 
-Build the plant model in Scilab Xcos, OpenModelica, or both. The blocks follow one tool-neutral contract in [FRAMEWORK.md](../../tools/plant-model/FRAMEWORK.md). Each tool exports FMI units for blocks that cross a tool or code boundary. The interface type, Model Exchange or Co-Simulation, is open item 4 (#42). Parameter values come from tool-neutral files. Which tool builds which block is open item 2 in the plant model README.
+Build the plant model in Scilab Xcos, OpenModelica, or both. The blocks follow one tool-neutral contract in [FRAMEWORK.md](../../tools/plant-model/FRAMEWORK.md). Each tool exports FMI units for blocks that cross a tool or code boundary. The interface type, Model Exchange or Co-Simulation, is not yet decided. Parameter values come from tool-neutral files. Which tool builds which block is not yet decided.
 
 ## Consequences
 
-- [FRAMEWORK.md](../../tools/plant-model/FRAMEWORK.md) is tool-neutral and specifies the block contract in FMI terms. Mapping it to each tool follows open item 2.
-- The plant model README lists the tool choices, verification, and integration as open items.
-- The uv Python project stays in `tools/plant-model/`. Its role is open.
+- [FRAMEWORK.md](../../tools/plant-model/FRAMEWORK.md) is tool-neutral and specifies the block contract in FMI terms. Mapping it to each tool follows the choice of which tool builds which block.
+- The uv Python project is removed from `tools/plant-model/`.

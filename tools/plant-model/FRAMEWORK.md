@@ -628,7 +628,7 @@ Every block follows one contract, whichever tool builds it. This keeps levels sw
 
 ### Block interface
 
-The forward part of every block is specified in the terms of the [FMI standard](https://fmi-standard.org/). A tool may build a block natively. Anything that crosses a tool or code boundary is an FMU with this interface. The FMI version, and whether a boundary uses Model Exchange or Co-Simulation, is open item 4 in [README.md](README.md).
+The forward part of every block is specified in the terms of the [FMI standard](https://fmi-standard.org/). A tool may build a block natively. Anything that crosses a tool or code boundary is an FMU with this interface. The FMI version, and whether a boundary uses Model Exchange or Co-Simulation, is not yet decided.
 
 Variables, as declared in the FMU's `modelDescription.xml`:
 
@@ -682,4 +682,4 @@ At Level 3, embedded code replaces each block marked Embedded code in [Structure
 - Each controller runs against simulated time, not wall-clock time. The hardware abstraction stub supplies its clock and tick, and the runner advances them.
 - Each controller steps at its own task rate. The plant runs as fast as it can between exchanges, holding the actuators constant.
 - Real-time pacing is needed only for hardware-in-the-loop, where a real processor runs against the plant. It is out of scope here.
-- How the plant calls the library, by direct link or by a wrapper FMU, is open item 4 in [README.md](README.md).
+- How the plant calls the library, by direct link or by a wrapper FMU, is not yet decided.

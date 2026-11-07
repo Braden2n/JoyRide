@@ -153,7 +153,7 @@ Other Vehicle and Driveline symbols in the framework have no value yet:
 | $\eta_d$ | `eta_d` | TBD | Chain or belt choice |
 | $v_\epsilon$ | `v_eps` | TBD | Solver tuning, once a model runs |
 
-Values for these are tracked as open item 7 in the [plant model README](../../tools/plant-model/README.md#open-items).
+Each stays TBD until research or a test supplies it.
 
 ## Sources
 

@@ -1,7 +1,7 @@
 ---
 id: TEMPLATES
 status: active
-updated: 2026-11-04
+updated: 2026-11-07
 ---
 
 # Templates and record schemas
@@ -48,7 +48,7 @@ The builder confirmed these vocabularies in #13.
 
 | Records | Values |
 | --- | --- |
-| STG, LRN | Not started, In progress, Blocked, Done |
+| STG | Not started, In progress, Blocked, Done |
 | Issue | Todo, In progress, Blocked, Done (JoyRide project Status) |
 | REQ, NEED | Draft, Agreed, Verified, Dropped |
 | DEC | Proposed, Accepted, Superseded |
@@ -68,7 +68,7 @@ Column order is fixed. A future CSV tracker uses the same columns.
 | REQ (system) | ID, Requirement, Target, Minimum, How to check, Owner, Status |
 | REQ (subsystem) | ID, Requirement, Target, How to check, Parent (REQ or ICD), Status |
 | RSK | ID, Risk, Cause, Mitigation, Applies, Subsystems, Status |
-| LRN | ID, Learning goal, Evidence, Status |
+| LRN | ID, Skill area, Starting level, Target by project end, Practiced in |
 | CON | ID, Concept, Learning value, Cost, Fit, Safety screen (pass or fail), Status |
 | PRT | ID, Description, Answers (question), Tests, Status |
 | ICD list row | ID, Between, Type, Status |

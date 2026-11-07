@@ -46,21 +46,6 @@ tools/plant-model/
   modelica/        OpenModelica package and scripts
   sim/             runners and co-simulation setup, for either tool
   studies/         sizing studies and their results
-  pyproject.toml   builder's uv Python project (FMPy); kept, role in open item 6
-  src/             Python package for that project
 ```
 
 Exported FMUs are generated and are not committed.
-
-## Open items
-
-| # | Open item | Owner |
-| --- | --- | --- |
-| 1 | Accept [DEC-014](../../docs/decisions/DEC-014-plant-model-in-xcos.md) (Scilab Xcos and/or OpenModelica, joined by FMI) in #37. | Builder decision |
-| 2 | Choose which tool builds which block, or whether both build every block. | Builder decision |
-| 3 | Verify on macOS, for each tool: version, FMI export and import, and that the exported FMU loads in FMPy. | STG-1 task 1b |
-| 4 | Choose the FMI version and interface type (Model Exchange or Co-Simulation) at each boundary, and how compiled embedded code joins the plant: a direct shared-library link, or a wrapper FMU. | Builder decision |
-| 5 | Choose the format of the tool-neutral parameter files in `params/`. | Builder decision |
-| 6 | Choose the role of the Python project: post-processing, FMU runner, or removed. | Builder decision |
-| 7 | Parameter values for every block. Each is TBD until research or a test supplies it. | STG-1 task 1b, then each cycle |
-| 8 | Set the energy-per-cycle tolerance between backward and forward mode, and the continuous-power window in [Sizing outputs](#sizing-outputs). | STG-1 task 1b |

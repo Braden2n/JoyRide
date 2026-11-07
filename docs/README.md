@@ -1,7 +1,7 @@
 ---
 id: README
 status: active
-updated: 2026-10-06
+updated: 2026-11-07
 ---
 
 # JoyRide documentation
@@ -38,3 +38,5 @@ Read in this order:
 - [decisions/](decisions/README.md): the decision log.
 - [procedures/](procedures/SOLO-SAFETY.md): safety and working procedures.
 - [templates/](templates/README.md): templates and record schemas.
+- [tools/plant-model/](../tools/plant-model/README.md): the powertrain plant model.
+- [research/](../research/README.md): reference documents and learnings.

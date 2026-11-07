@@ -1,7 +1,7 @@
 ---
 id: STG-1
 status: In progress
-updated: 2026-11-04
+updated: 2026-11-07
 stage_type: system
 subsystem: none
 spark: yes
@@ -49,7 +49,7 @@ Sets every system REQ in GOALS.md.
 Spend about 3 to 4 hours per stream, and end each with a short note on what it means for JoyRide.
 
 - [ ] Reference builds: what 3 to 5 DIY karts and small EVs use for frame, motor, voltage, and battery, and what went wrong.
-- [ ] Drivetrain sizing: build Python sizing model v0 for power, voltage, gearing, and energy from the starting inputs in GOALS.md.
+- [ ] Drivetrain sizing: build sizing model v0 in the [plant model](../../tools/plant-model/README.md) for power, voltage, gearing, and energy from the starting inputs in GOALS.md.
 - [ ] Safety basics: list the main hazards below 60 V DC and the protections that matter most. Update RISKS.md.
 - [ ] Open-source landscape: list open projects for motor control, battery management, CAN tools, and dashboards (names only).
 - [ ] Done when there are rough numbers for power, pack voltage, and energy.
@@ -105,11 +105,12 @@ RSK-004, RSK-008, RSK-009.
 | System goal values | All | |
 | Kart MVP definition and placeholders | All | |
 | Starting subsystem | All | DEC-005 |
-| Workspace safety plan | PACK | |
+| Workspace safety plan | PACK | DEC-013 (resolved in #9) |
 | Subsystem home structure | All | DEC-009 |
 | Folder structure for non-subsystem work | All | DEC-010 (resolved in #36) |
 | Definition of a useful session | PACK | DEC-011 (resolved in #11) |
 | Cycle scheduling | All | DEC-012 (resolved in #10) |
+| Plant model tool stack | DRV, PACK | DEC-014 (Proposed, #37) |
 
 ## Checkpoint additions
 
@@ -126,5 +127,4 @@ RSK-004, RSK-008, RSK-009.
 
 | # | Open item | Owner |
 | --- | --- | --- |
-| 1 | Workspace ventilation and charging area. An earlier assumption said a safe lithium workspace exists; the builder says ventilation is poor. | Builder decision |
 | 2 | Confirm the TST-SYS code in the [templates](../templates/README.md). Status vocabularies confirmed in #13. | Builder decision |

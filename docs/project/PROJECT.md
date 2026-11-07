@@ -1,7 +1,7 @@
 ---
 id: PROJECT
 status: draft
-updated: 2026-11-04
+updated: 2026-11-07
 ---
 
 # JoyRide project guide
@@ -69,7 +69,7 @@ The builder's constraints:
 | Software licensing | Open source or free for personal use | Fixed |
 | Voltage ceiling | Below 60 V DC at full charge | Fixed |
 | Weekly time | 6 to 10 hours | Estimated |
-| Workspace | A garage for the kart and a spare bedroom for subsystem work; ventilation for lithium charging and soldering still needs to be addressed | TBD |
+| Workspace | A garage for the kart and a spare bedroom for subsystem work, with desktop fume extraction for soldering. Not safe for lithium work; a makerspace is proposed ([DEC-013](../decisions/DEC-013-lithium-work-at-makerspace.md)) | TBD |
 | Timeline | About 18 months | Fixed ([DEC-003](../decisions/DEC-003-timeline-and-aim.md)) |
 
 The repository is fully open source, with one submodule per atomic piece ([DEC-002](../decisions/DEC-002-open-source-with-submodules.md)). The documentation layout is in [CLAUDE.md](../../CLAUDE.md#layout).

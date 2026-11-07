@@ -22,7 +22,7 @@ Core-document rules:
 ## Working with the builder
 
 - Treat stage tasks and the cycle as recommendations. The builder's latest instruction wins.
-- Never invent a value. Write TBD and add an open item to the owning document.
+- Never invent a value. Write TBD and track it as a stage open item or an issue.
 - A literature estimate is not invented if it cites its sources, gives a sweep range, and the builder accepts it.
 - Ask before resolving anything marked "builder decision".
 - Do not add scope. New ideas go to the backlog as an issue labeled `parking lot`.
@@ -61,7 +61,7 @@ Agents run from `@claude` mentions in issues and PRs. The builder's latest comme
 3. Make one PR per issue. The workflow opens it from the first commit: the subject is the title, and the body cites the issue as `Closes #N` if the PR completes the request, otherwise `Refs #N`. Further work on the issue happens by mentioning `@claude` on the PR.
 4. Do not merge or close issues. Merging is the builder's approval, and it closes any issue the PR closes.
 5. If the request is unclear, or a choice belongs to the builder, ask in a comment and stop.
-6. Never invent a value. Write TBD, and add an open item to the owning document.
+6. Never invent a value. Write TBD, and track it as a stage open item or an issue.
 7. Record new ideas as a `parking lot` issue. Do not act on them.
 8. Add any new directory to the Layout section in the same PR.
 9. Before numbering a new global ID, check the numbers that open PRs claim, and take the next free one.
