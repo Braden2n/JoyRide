@@ -24,7 +24,7 @@ Levels change block internals only. Each level extends the one below it.
 | --- | --- | --- | --- | --- |
 | 1 | Sizing | What power, voltage, gearing, and energy meet the goals? | Backward | None; SOC is a running sum |
 | 2 | Performance | Does the kart reach its speed and acceleration, and what do losses, sag, and heat do? | Forward, with backward for sweeps | Variable step |
-| 3 | Co-simulation | Does the embedded code behave correctly against the plant? | Forward | Fixed step at the code's task rate |
+| 3 | Co-simulation | Does the embedded code behave correctly against the plant? | Forward | Fixed communication step at each controller's task rate |
 
 Both modes share one parameter set and one set of loss equations.
 
@@ -58,7 +58,7 @@ Eleven blocks make up the plant. Scenario stands in for the driver and the test.
 | [Motor and inverter](#motor-and-inverter) | Drivetrain | DRV | Converts DC power to shaft power | Plant |
 | [Driveline](#driveline) | Drivetrain | DRV | Gear ratio from the shaft to the wheel | Plant |
 | [Vehicle](#vehicle) | None | CHS | Longitudinal force balance | Plant |
-| [Cooling](#cooling) | None | TMS | Removes block heat on the Controller's command, optional from Level 2 | Plant |
+| [Cooling](#cooling) | None | TMS | Carries block heat to ambient, with optional active cooling on the Controller's command; from Level 2 | Plant |
 
 ```mermaid
 ---
@@ -102,7 +102,7 @@ flowchart
     Controller ~~~ Motor
 ```
 
-The optional Cooling block joins the Controller and both groups from Level 2 onwards:
+The Cooling block joins the Controller and both groups from Level 2 onwards:
 
 ```mermaid
 ---
@@ -219,8 +219,8 @@ $$a = \min\left(\max(u, 0), 1\right), \qquad b = \min\left(\max(-u, 0), 1\right)
 | $u$ | | Driver command, positive to accelerate | 1 | Computed | 2 |
 | $K_p$ | `K_p` | Proportional gain | s/m | TBD | 2 |
 | $K_i$ | `K_i` | Integral gain | 1/m | TBD | 2 |
-| $a$ | | Accelerator pedal position | 0 to 1 | Unused at Level 1 | 2 |
-| $b$ | | Brake pedal position | 0 to 1 | Unused at Level 1 | 2 |
+| $a$ | | Accelerator pedal position | 0 to 1 | 0 at Level 1 | 2 |
+| $b$ | | Brake pedal position | 0 to 1 | 0 at Level 1 | 2 |
 | $s_{estop}$ | | E-stop pressed | 0 or 1 | 0 | 1 |
 
 ### Controller
@@ -267,7 +267,7 @@ $$T_{cmd} = \min\left(\max(T_{req}, T_{lo}), T_{hi}\right)$$
 - At standstill the current-limit terms are unbounded, so $T_{max}$ and $T_{min}$ govern.
 - The friction brake is mechanical, in the Vehicle. Regen adds to it rather than blending with it.
 - Regen on the brake pedal is a placeholder. The VCU cycle sets the real regen strategy.
-- Cooling holds $u_{cool}$ at its neutral value, full cooling, until a cooling strategy exists.
+- $u_{cool}$ holds its neutral value, passive cooling only, until a cooling strategy exists.
 - $v$ comes from Wheel speed, as $\omega_w r_w$.
 
 **Level 3.** Compiled VCU code replaces this block.
@@ -280,7 +280,7 @@ $$T_{cmd} = \min\left(\max(T_{req}, T_{lo}), T_{hi}\right)$$
 | $T_{cmd}$ | | Torque command | N·m | Always computed | 1 |
 | $s_{en}$ | | Drive enable | 0 or 1 | 1 | 1 |
 | $s_{ready}$ | | Drive-ready request | 0 or 1 | 1 | 1 |
-| $u_{cool}$ | | Cooling command, 0 for off and 1 for full | 0 to 1 | 1 | 1 |
+| $u_{cool}$ | | Cooling command, 0 for passive and 1 for active cooling | 0 to 1 | 0 | 1 |
 | $T_{hi}$, $T_{lo}$ | | Upper and lower torque bounds from all limits | N·m | Computed | 2 |
 | $T_{req}$ | | Torque request before clipping | N·m | Computed | 2 |
 | $v_{regen}$ | `v_regen` | Speed below which regen is off | m/s | TBD | 2 |
@@ -292,8 +292,8 @@ Cells scale to the pack by series and parallel count.
 | Bus | I/O | Peer | Signals |
 | --- | --- | --- | --- |
 | Cell power | Port | [Power path](#power-path) | $V_{pack}$ out, $I_{pack}$ in |
-| Cell sense | Out | [BMS](#bms) | $V_{pack}$, $SOC$; $T$ from Level 2; cell group voltages at Level 3 |
-| Balancing command | In | [BMS](#bms) | Balancing commands, Level 3 |
+| Cell sense | Out | [BMS](#bms) | $V_{pack}$, $SOC$; $T$ from Level 2; $V_{grp}$ at Level 3 |
+| Balancing command | In | [BMS](#bms) | $s_{bal}$, Level 3 |
 | Pack heat | Port | [Cooling](#cooling) | $T$ out, $Q_{cool}$ in |
 | Pack temperature | Out | [Controller](#controller) | $T$ |
 | Pack power demand | In | [Power path](#power-path) | $P_{pack}$, backward mode |
@@ -335,6 +335,7 @@ Backward mode then uses $n_s \left( \mathrm{OCV}(SOC) - V_{rc} \right)$ as $V_{o
 | $V_{oc}$, $R_{pack}$ | | Pack open-circuit voltage and resistance, backward mode | V, Ω | Computed | 1 |
 | $R_1$, $C_1$ | `R_1`, `C_1` | Cell RC pair | Ω, F | TBD, cell choice | 2 |
 | $V_{rc}$ | | RC branch voltage, a state | V | Computed | 2 |
+| $V_{grp}$ | | Voltage of one cell group | V | $V_{pack}$ shared evenly | 3 |
 
 ### BMS
 
@@ -342,12 +343,12 @@ The BMS publishes Pack status and has authority over the contactors.
 
 | Bus | I/O | Peer | Signals |
 | --- | --- | --- | --- |
-| Cell sense | In | [Cells](#cells) | $V_{pack}$, $SOC$; $T$ from Level 2; cell group voltages at Level 3 |
+| Cell sense | In | [Cells](#cells) | $V_{pack}$, $SOC$; $T$ from Level 2; $V_{grp}$ at Level 3 |
 | Path sense | In | [Power path](#power-path) | $\hat{I}_{pack}$, $s_c$ |
 | Pack request | In | [Controller](#controller) | $s_{ready}$ |
 | Pack status | Out | [Controller](#controller) | $s_c$, $V_{pack}$, $\hat{I}_{pack}$, $SOC$, $I_{dcl}$, $I_{ccl}$, $f_{pack}$ |
-| Contactor command | Out | [Power path](#power-path) | Contactor and precharge commands, Level 3 |
-| Balancing command | Out | [Cells](#cells) | Balancing commands, Level 3 |
+| Contactor command | Out | [Power path](#power-path) | $s_{close}$, $s_{pre}$, Level 3 |
+| Balancing command | Out | [Cells](#cells) | $s_{bal}$, Level 3 |
 
 **Level 1.** A pass-through. It publishes constant current limits, reports the contactors closed, and passes true values as measurements.
 
@@ -367,6 +368,9 @@ $$I_{dcl} = \begin{cases} I_{dcl,0} & V_{cell} > V_{min} \\ 0 & V_{cell} \le V_{
 | $I_{dcl,0}$ | `I_dcl_0` | Discharge current limit | A | TBD, pack choice | 1 |
 | $I_{ccl,0}$ | `I_ccl_0` | Charge current limit, for regen | A | TBD, pack choice | 1 |
 | $f_{pack}$ | | Pack fault | 0 or 1 | 0 | 1 |
+| $s_{close}$ | | Contactor close command | 0 or 1 | 1 | 3 |
+| $s_{pre}$ | | Precharge command | 0 or 1 | 0 | 3 |
+| $s_{bal}$ | | Balancing command, per cell group | 0 or 1 | 0 | 3 |
 | $V_{cell}$ | | Mean cell voltage | V | Computed | 2 |
 | $V_{min}$ | `V_cell_min` | Cell voltage floor | V | TBD, cell choice | 2 |
 | $V_{max}$ | `V_cell_max` | Cell voltage ceiling | V | TBD, cell choice | 2 |
@@ -380,7 +384,7 @@ The conduction path from the cells to the DC port: fuse, contactors, precharge, 
 | Cell power | Port | [Cells](#cells) | $V_{pack}$ in, $I_{pack}$ out |
 | DC port | Port | [Motor and inverter](#motor-and-inverter) | $V_{bus}$ out, $I_{dc}$ in |
 | E-stop | In | [Driver](#drive-cycle-and-driver) | $s_{estop}$ |
-| Contactor command | In | [BMS](#bms) | Contactor and precharge commands, Level 3 |
+| Contactor command | In | [BMS](#bms) | $s_{close}$, $s_{pre}$, Level 3 |
 | Path sense | Out | [BMS](#bms) | $\hat{I}_{pack}$, $s_c$ |
 | Pack heat | Port | [Cooling](#cooling) | $T$ out, $Q_{cool}$ in |
 | Pack temperature | Out | [Controller](#controller) | $T$ |
@@ -426,7 +430,7 @@ $$\hat{I}_{pack} = (1 + g_I) \, I_{pack} + o_I + n_I(t)$$
 | Bus | I/O | Peer | Signals |
 | --- | --- | --- | --- |
 | Drive command | In | [Controller](#controller) | $T_{cmd}$, $s_{en}$ |
-| Motor sense | In | [Motor and inverter](#motor-and-inverter) | $\omega_m$; at Level 3 also $V_{bus}$, phase or armature current, and rotor position |
+| Motor sense | In | [Motor and inverter](#motor-and-inverter) | $\omega_m$; at Level 3 also $V_{bus}$, $i_{ph}$ or $i_a$, and $\theta_m$ |
 | Motor command | Out | [Motor and inverter](#motor-and-inverter) | $T_m$ at Levels 1 and 2; duty or phase voltage at Level 3 |
 | Drive status | Out | [Controller](#controller) | $\omega_m$, $T_{max}$, $T_{min}$, $f_{drive}$ |
 
@@ -438,8 +442,8 @@ $$T_m = T_{cmd}$$
 
 | Symbol | Parameter | Meaning | Unit | Value | Level |
 | --- | --- | --- | --- | --- | --- |
-| $T_{max}$ | `T_max` | Motoring torque envelope, a function of shaft speed and bus voltage | N·m | TBD, motor choice | 1 |
-| $T_{min}$ | `T_min` | Regen torque envelope, zero or negative | N·m | TBD, motor choice | 1 |
+| $T_{max}$ | `T_max` | Motoring torque envelope, a function of shaft speed and bus voltage | N·m | TBD, motor choice. Published as is. | 1 |
+| $T_{min}$ | `T_min` | Regen torque envelope, zero or negative | N·m | TBD, motor choice. Published as is. | 1 |
 | $f_{drive}$ | | Drive fault | 0 or 1 | 0 | 1 |
 | $d$ | | Chopper duty cycle, on Motor command | 0 to 1 | Computed | 3 |
 | $v_d$, $v_q$ | | dq phase voltages, on Motor command | V | Computed | 3 |
@@ -451,7 +455,7 @@ The motor and inverter are lumped at Levels 1 and 2.
 | Bus | I/O | Peer | Signals |
 | --- | --- | --- | --- |
 | Motor command | In | [Motor control](#motor-control) | $T_m$ at Levels 1 and 2; duty or phase voltage at Level 3 |
-| Motor sense | Out | [Motor control](#motor-control) | $\omega_m$; at Level 3 also $V_{bus}$, phase or armature current, and rotor position |
+| Motor sense | Out | [Motor control](#motor-control) | $\omega_m$; at Level 3 also $V_{bus}$, $i_{ph}$ or $i_a$, and $\theta_m$ |
 | DC port | Port | [Power path](#power-path) | $V_{bus}$ in, $I_{dc}$ out |
 | Shaft | Port | [Driveline](#driveline) | $T_m$ out, $\omega_m$ in |
 | Drive heat | Port | [Cooling](#cooling) | $T$ out, $Q_{cool}$ in |
@@ -499,7 +503,9 @@ $$T_m = \tfrac{3}{2} p \left( \lambda i_q + (L_d - L_q) i_d i_q \right)$$
 | $C$ | `C_loss` | Constant loss | W | TBD | 2 |
 | $R_a$, $L_a$ | `R_a`, `L_a` | Armature resistance and inductance | Ω, H | TBD | 3 |
 | $k_e$, $k_t$ | `k_e`, `k_t` | Back-EMF and torque constants | V·s/rad, N·m/A | TBD | 3 |
-| $i_a$ | | Armature current | A | Computed | 3 |
+| $i_a$ | | Armature current, for the brushed DC motor | A | Computed | 3 |
+| $i_{ph}$ | | Measured phase current, for the AC motor | A | 0 | 3 |
+| $\theta_m$ | | Rotor position | rad | 0 | 3 |
 | $R$, $L_d$, $L_q$ | `R_s`, `L_d`, `L_q` | Stator resistance and dq inductances | Ω, H | TBD | 3 |
 | $\lambda$ | `lambda_pm` | Permanent-magnet flux linkage | Wb | TBD | 3 |
 | $p$ | `p` | Pole pairs | 1 | TBD | 3 |
@@ -597,7 +603,7 @@ Rolling and friction-brake forces vanish at standstill, so the kart never rolls 
 
 ### Cooling
 
-Absent at Level 1. From Level 2, it removes heat from each thermal node in [Conventions](#conventions), on the Controller's command.
+Absent at Level 1. From Level 2, it carries heat from each thermal node in [Conventions](#conventions) to ambient. Passive cooling is always present. Active cooling, such as a coolant loop with a heat exchanger, is optional and follows the Controller's command.
 
 | Bus | I/O | Peer | Signals |
 | --- | --- | --- | --- |
@@ -605,14 +611,16 @@ Absent at Level 1. From Level 2, it removes heat from each thermal node in [Conv
 | Drive heat | Port | [Motor and inverter](#motor-and-inverter), [Driveline](#driveline) | $T$ in, $Q_{cool}$ out |
 | Cooling control | In | [Controller](#controller) | $u_{cool}$ |
 
-**Level 2.** One path to ambient per node, whose resistance depends on the cooling command.
+**Level 2.** One path to ambient per node. Its resistance is $R_{th,0}$ with passive cooling and falls to $R_{th,1}$ at full active cooling. The shape between them is TBD. With no active cooling, $R_{th,1} = R_{th,0}$ and the command has no effect.
 
 $$Q_{cool} = \frac{T - T_{amb}}{R_{th}(u_{cool})}$$
 
 | Symbol | Parameter | Meaning | Unit | Value | Level |
 | --- | --- | --- | --- | --- | --- |
-| $Q_{cool}$ | | Heat removed from one node | W | Computed | 2 |
-| $R_{th}$ | `R_th.<block>` | Thermal resistance from one node to ambient, a function of $u_{cool}$ | K/W | TBD | 2 |
+| $Q_{cool}$ | | Heat removed from one node | W | 0 at Level 1 | 2 |
+| $R_{th}(u_{cool})$ | | Thermal resistance from one node to ambient | K/W | Computed | 2 |
+| $R_{th,0}$ | `R_th_0.<block>` | Thermal resistance to ambient, passive cooling | K/W | TBD | 2 |
+| $R_{th,1}$ | `R_th_1.<block>` | Thermal resistance to ambient, full active cooling | K/W | TBD, hardware choice | 2 |
 
 ## Block contract
 
@@ -629,7 +637,7 @@ Variables, as declared in the FMU's `modelDescription.xml`:
 | In rows of the IO table | Variables with `causality="input"` |
 | Out rows of the IO table | Variables with `causality="output"` |
 | Port rows | One input and one output per port, effort and flow, in the direction the IO table gives. FMI has no acausal connectors. |
-| Bus | One variable per signal, with a structured name such as `Pack_status.V_pack`. FMI 3.0 can also group them as a terminal. |
+| Bus | One variable per signal, named as the bus name with underscores, a dot, then the symbol in plain text, such as `Pack_status.V_pack`. FMI 3.0 can also group them as a terminal. |
 | Parameters in the symbol table | Variables with `causality="parameter"` and `variability="fixed"`, with start values from `params/` |
 | A signal the level does not model | An output with `variability="constant"`, set to its neutral value |
 | States, such as $v$, $SOC$, $V_{rc}$, $T$ | Continuous states, each with a declared derivative |
@@ -671,5 +679,7 @@ At Level 3, embedded code replaces each block marked Embedded code in [Structure
 - All other inputs and outputs reach the code as hardware I/O through the hardware abstraction stub.
 - Brake pedal is mechanical, and E-stop is a hardware loop. No code sits on either path.
 - The code builds for the host as a shared library with a C interface: `init`, `step(t, sensors) -> actuators`, and `terminate`. This is the same lifecycle as a Co-Simulation FMU.
-- The plant advances in fixed substeps between controller ticks, holding the actuators constant.
+- Each controller runs against simulated time, not wall-clock time. The hardware abstraction stub supplies its clock and tick, and the runner advances them.
+- Each controller steps at its own task rate. The plant runs as fast as it can between exchanges, holding the actuators constant.
+- Real-time pacing is needed only for hardware-in-the-loop, where a real processor runs against the plant. It is out of scope here.
 - How the plant calls the library, by direct link or by a wrapper FMU, is open item 4 in [README.md](README.md).

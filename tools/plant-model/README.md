@@ -15,14 +15,7 @@ A vehicle powertrain plant model for JoyRide. It starts as the sizing model v0 o
 | Users | DRV, PACK, VCU, and TMS cycles; STG-3 integration |
 | Tools | Scilab Xcos or OpenModelica, per [DEC-014](../../docs/decisions/DEC-014-plant-model-in-xcos.md) (proposed) |
 | Form | Plain folder until real code exists, then its own submodule ([DEC-002](../../docs/decisions/DEC-002-open-source-with-submodules.md), [DEC-010](../../docs/decisions/DEC-010-non-subsystem-work-structure.md)) |
-| Design | [FRAMEWORK.md](FRAMEWORK.md) |
-
-## Use modes
-
-| Mode | Question it answers | Controller | Stage |
-| --- | --- | --- | --- |
-| Sizing | What power, voltage, gearing, and energy meet the goals? | Ideal, inside the model | STG-1 |
-| Co-simulation | Does the embedded code behave correctly against the plant? | Compiled VCU, BMS, or motor control code | STG-2 and STG-3 |
+| Design | [FRAMEWORK.md](FRAMEWORK.md), including the [fidelity levels and modes](FRAMEWORK.md#fidelity-and-modes) |
 
 ## Sizing outputs
 
