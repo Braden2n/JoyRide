@@ -1,7 +1,7 @@
 ---
 id: PLANT-MODEL
 status: draft
-updated: 2026-10-16
+updated: 2026-11-07
 ---
 
 # Plant model
@@ -23,6 +23,21 @@ A vehicle powertrain plant model for JoyRide. It starts as the sizing model v0 o
 | --- | --- | --- | --- |
 | Sizing | What power, voltage, gearing, and energy meet the goals? | Ideal, inside the model | STG-1 |
 | Co-simulation | Does the embedded code behave correctly against the plant? | Compiled VCU, BMS, or motor control code | STG-2 and STG-3 |
+
+## Sizing outputs
+
+Each output checks against a REQ in [GOALS.md](../../docs/project/GOALS.md#system-requirements). Level 1 produces everything except top speed. Symbols are defined in [FRAMEWORK.md](FRAMEWORK.md#blocks).
+
+| Output | Definition | Mode | Min. level | Checks |
+| --- | --- | --- | --- | --- |
+| Energy per cycle | $E_{cycle} = \int_0^{t_{cycle}} V_{pack} I_{pack} \, dt$ | Both | 1 | REQ-SYS-002, REQ-SYS-004 |
+| Regen recovered | The negative part of $E_{cycle}$ | Both | 1 | REQ-SYS-004 |
+| Run time | Time until SOC or cell voltage reaches its floor, repeating the cycle | Both | 1 | REQ-SYS-002 |
+| Peak and continuous power | Peak and sustained $P_{pack}$; the continuous window is TBD | Both | 1 | REQ-SYS-004 |
+| Peak torque and gear ratio range | $T_m$ and $N$ that meet every cycle without a flag | Backward sweep, forward check | 1 | REQ-SYS-001, REQ-SYS-004 |
+| Pack voltage and current | $V_{pack}$ range and peak $I_{pack}$ | Both | 1 | REQ-SAF-002 at full charge |
+| Design load | All outputs computed at the REQ-SYS-003 mass | Both | 1 | REQ-SYS-003 |
+| Top speed | Steady $v$ at full pedal on level ground | Forward | 2 | REQ-SYS-001 |
 
 ## Layout
 
@@ -51,7 +66,8 @@ Exported FMUs are generated and are not committed.
 | 1 | Accept [DEC-014](../../docs/decisions/DEC-014-plant-model-in-xcos.md) (Scilab Xcos and/or OpenModelica, joined by FMI) in #37. | Builder decision |
 | 2 | Choose which tool builds which block, or whether both build every block. | Builder decision |
 | 3 | Verify on macOS, for each tool: version, FMI export and import, and that the exported FMU loads in FMPy. | STG-1 task 1b |
-| 4 | Choose how compiled embedded code joins the plant: a direct shared-library link, or a wrapper FMU. | Builder decision |
+| 4 | Choose the FMI version and interface type (Model Exchange or Co-Simulation) at each boundary, and how compiled embedded code joins the plant: a direct shared-library link, or a wrapper FMU. | Builder decision |
 | 5 | Choose the format of the tool-neutral parameter files in `params/`. | Builder decision |
 | 6 | Choose the role of the Python project: post-processing, FMU runner, or removed. | Builder decision |
 | 7 | Parameter values for every block. Each is TBD until research or a test supplies it. | STG-1 task 1b, then each cycle |
+| 8 | Set the energy-per-cycle tolerance between backward and forward mode, and the continuous-power window in [Sizing outputs](#sizing-outputs). | STG-1 task 1b |

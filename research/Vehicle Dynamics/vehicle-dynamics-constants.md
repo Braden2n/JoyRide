@@ -21,7 +21,7 @@ First-pass values for the plant [Vehicle equations](../../tools/plant-model/FRAM
 
 ## Parameter map
 
-Symbols and parameter names match the framework's [Vehicle](../../tools/plant-model/FRAMEWORK.md#vehicle) symbol table.
+Symbols and parameter names match the framework's [Vehicle](../../tools/plant-model/FRAMEWORK.md#vehicle) and [global parameter](../../tools/plant-model/FRAMEWORK.md#conventions) tables.
 
 | Symbol | Parameter | Baseline | Sweep | How it was set | Section |
 | --- | --- | --- | --- | --- | --- |
@@ -33,7 +33,7 @@ Symbols and parameter names match the framework's [Vehicle](../../tools/plant-mo
 | $m$ | `m` | 246 to 276 kg | same | 136 kg driver (REQ-SYS-003) plus estimated kart mass | [Mass and rotating mass](#mass-and-rotating-mass) |
 | $k_m$ | `k_m` | 1.13 | 1.0 to 1.13 | Fitted kart value, until $J_{total}$ is known | [Mass and rotating mass](#mass-and-rotating-mass) |
 
-- Sweeps run in backward mode through the framework's `sweep()` loop. The chosen set is confirmed in forward mode ([Modeling modes](../../tools/plant-model/FRAMEWORK.md#modeling-modes), [Run loops](../../tools/plant-model/FRAMEWORK.md#run-loops)).
+- Sweeps run in backward mode. The chosen set is confirmed in forward mode ([Fidelity and modes](../../tools/plant-model/FRAMEWORK.md#fidelity-and-modes)).
 - Tofrowaih et al. (2025) write $C_{rr}$ as μk and split $C_dA$ into Cd and Af. Only the product $C_dA$ enters the framework.
 
 ## Process
@@ -149,7 +149,7 @@ Other Vehicle and Driveline symbols in the framework have no value yet:
 | $r_w$ | `r_wheel` | TBD | Wheel and tire choice. Tofrowaih et al. use 0.15 m, and Istardi uses 0.14 m. |
 | $J_{wheel}$ | `J_wheel` | TBD | Wheel, axle, and wheel-side sprocket choice |
 | $J_{rotor}$ | `J_rotor` | TBD | Motor and motor-side sprocket choice |
-| $N$ | `N` | Sizing output | The sweep, per the framework's [Sizing outputs](../../tools/plant-model/FRAMEWORK.md#sizing-outputs) |
+| $N$ | `N` | Sizing output | The sweep, per the plant model's [Sizing outputs](../../tools/plant-model/README.md#sizing-outputs) |
 | $\eta_d$ | `eta_d` | TBD | Chain or belt choice |
 | $v_\epsilon$ | `v_eps` | TBD | Solver tuning, once a model runs |
 
