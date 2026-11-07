@@ -33,8 +33,8 @@ Do no lithium work at home. Use fume-extracted home space for electronics work o
 
 - Makerspace facts, from the builder's tour (#9):
   - It permits lithium cell handling and charging.
-  - Storage is adequate with safety measures. The measures are TBD.
-  - Access is 24/7 after a probationary period. The length of the probation is TBD.
+  - Storage is adequate with safety measures: safe deactivation or neutralization of any HV source, and packaging in an enclosed environment until the battery system is self-contained with its own enclosure.
+  - Access is 24/7 after a 30-day probationary period.
   - It has a fire response.
   - Membership costs $45 per month, against the $150 monthly cap in [PROJECT.md](../project/PROJECT.md#builder-and-constraints).
 - Resolves [STG-1](../stages/STG-1-ARCHITECTURE.md) open item 1 (#9).
